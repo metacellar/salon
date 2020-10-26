@@ -1,7 +1,7 @@
 # salon
 Salon for paper reading
 
-<table>
+table>
     <thead>
         <tr>
             <th>Date</th>
@@ -11,6 +11,7 @@ Salon for paper reading
         </tr>
     </thead>
     <tbody>
+        <tr>
             <td rowspan="3">2020-10-18</td>
             <td>Machine Learning Frameworks</td>
             <td>linxuyalun</td>
@@ -22,7 +23,7 @@ Salon for paper reading
             </td>
         </tr>
         <tr>
-          	<td>Map Reduce</td>
+            <td>Map Reduce</td>
             <td>c1</td>
             <td>
                 <ul>
@@ -39,7 +40,7 @@ Salon for paper reading
                 </ul>
             </td>
         </tr>
-				<tr>
+        <tr>
             <td rowspan="4">2020-10-26</td>
             <td>topic</td>
             <td>author</td>
@@ -49,26 +50,32 @@ Salon for paper reading
                 </ul>
             </td>
         </tr>
-				<tr>
-            <td>topic</td>
-            <td>author</td>
-            <td>
-                <ul>
-                    <li><a href="address" rel="nofollow"><strong>title</strong></a> (author) [<em>reference</em>]</li>
-                </ul>
-            </td>
-        </tr>
-				<tr>
-            <td>topic</td>
-            <td>author</td>
-            <td>
-                <ul>
-                    <li><a href="address" rel="nofollow"><strong>title</strong></a> (author) [<em>reference</em>]</li>
-                </ul>
-            </td>
-        </tr>
         <tr>
-          	<td>Stream Processing</td>
+            <td>topic</td>
+            <td>author</td>
+            <td>
+                <ul>
+                    <li><a href="address" rel="nofollow"><strong>title</strong></a> (author) [<em>reference</em>]</li>
+                </ul>
+            </td>
+        </tr>
+            <tr>
+            <td>RDD</td>
+            <td>c1</td>
+            <td>
+                <ul>
+                    <li><a href="http://people.csail.mit.edu/matei/papers/2010/hotcloud_spark.pdf" rel="nofollow"><strong>Spark: Cluster Computing with Working Sets</strong></a> (Matei Zaharia, Mosharaf Chowdhury, Michael J. Franklin, Scott Shenker, Ion Stoica) [<em>HotCloud 2010</em>]</li>
+                </ul>
+                <ul>
+                    <li><a href="http://people.csail.mit.edu/matei/papers/2012/nsdi_spark.pdf" rel="nofollow"><strong>Resilient Distributed Datasets: A Fault-Tolerant Abstraction for
+In-Memory Cluster Computing</strong></a> (Matei Zaharia, Mosharaf Chowdhury, Tathagata Das, Ankur Dave, Justin Ma,
+Murphy McCauley, Michael J. Franklin, Scott Shenker, Ion Stoica) [<em>NSDI 2012</em>]</li>
+                </ul>
+            </td>
+        </tr>
+        http://people.csail.mit.edu/matei/papers/2012/nsdi_spark.pdf
+        <tr>
+            <td>Stream Processing</td>
             <td>linxuyalun</td>
             <td>
                 <ul>

@@ -1,7 +1,7 @@
 # salon
 Salon for paper reading
 
-table>
+<table>
     <thead>
         <tr>
             <th>Date</th>

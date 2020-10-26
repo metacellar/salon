@@ -73,7 +73,6 @@ Murphy McCauley, Michael J. Franklin, Scott Shenker, Ion Stoica) [<em>NSDI 2012<
                 </ul>
             </td>
         </tr>
-        http://people.csail.mit.edu/matei/papers/2012/nsdi_spark.pdf
         <tr>
             <td>Stream Processing</td>
             <td>linxuyalun</td>

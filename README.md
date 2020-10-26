@@ -8,6 +8,7 @@ Salon for paper reading
             <th>Topic</th>
             <th>Speaker</th>
             <th>Papers</th>
+            <th>Notes</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,8 @@ Salon for paper reading
                   <li><a href="https://www.usenix.org/conference/osdi18/presentation/nishihara" rel="nofollow"><strong>Ray: A Distributed Framework for Emerging AI Applications</strong></a> (Philipp Moritz, Robert Nishihara, Stephanie Wang, Alexey Tumanov, Richard Liaw, Eric Liang, Melih Elibol, Zongheng Yang, William Paul, Michael I. Jordan, and Ion Stoica, UC Berkeley) [<em>OSDI '18</em>]</li>
                 </ul>
             </td>
+            <td>
+            </td>
         </tr>
         <tr>
             <td>Map Reduce</td>
@@ -28,6 +31,13 @@ Salon for paper reading
             <td>
                 <ul>
                     <li><a href="https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf" rel="nofollow"><strong>MapReduce</strong></a> (Jeffrey Dean and Sanjay Ghemawat) [<em>OSDI '04</em>]</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="https://www.notion.so/thrimbda/MapReduce-bf7ceafc3f84471c839545250426d5ca" rel="nofollow"><strong>Notes/Summary</strong>
+                    </li>
                 </ul>
             </td>
         </tr>
@@ -39,6 +49,8 @@ Salon for paper reading
                     <li><a href="https://www.cs.toronto.edu/~hinton/absps/NatureDeepReview.pdf" rel="nofollow"><strong>Deep Learning Preview</strong></a> (Yann LeCun, Yoshua Bengio & Geoffrey Hinton)</li>
                 </ul>
             </td>
+            <td>
+            </td>
         </tr>
         <tr>
             <td rowspan="4">2020-10-26</td>
@@ -49,6 +61,8 @@ Salon for paper reading
                     <li><a href="address" rel="nofollow"><strong>title</strong></a> (author) [<em>reference</em>]</li>
                 </ul>
             </td>
+            <td>
+            </td>
         </tr>
         <tr>
             <td>topic</td>
@@ -57,6 +71,8 @@ Salon for paper reading
                 <ul>
                     <li><a href="address" rel="nofollow"><strong>title</strong></a> (author) [<em>reference</em>]</li>
                 </ul>
+            </td>
+            <td>
             </td>
         </tr>
             <tr>
@@ -72,6 +88,12 @@ In-Memory Cluster Computing</strong></a> (Matei Zaharia, Mosharaf Chowdhury, Tat
 Murphy McCauley, Michael J. Franklin, Scott Shenker, Ion Stoica) [<em>NSDI 2012</em>]</li>
                 </ul>
             </td>
+            <td>
+                <ul>
+                    <li><a href="https://www.notion.so/thrimbda/Spark-50db23d01c8e45a6bc866e6bdb817276" rel="nofollow"><strong>Notes/Summary on Spark Paper</strong>
+                    <li><a href="https://www.notion.so/thrimbda/RDD-99707eabcac84d9cbf1c18768ed575cf" rel="nofollow"><strong>Notes/Summary on RDD Paper</strong>
+                </ul>
+            </td>
         </tr>
         <tr>
             <td>Stream Processing</td>
@@ -81,6 +103,8 @@ Murphy McCauley, Michael J. Franklin, Scott Shenker, Ion Stoica) [<em>NSDI 2012<
                     <li><a href="https://doi.org/10.14778/3137765.3137777" rel="nofollow"><strong>Turbine: Facebook’s Service Management Platform
 for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michael Y. Levin, Gabriela Jacques-Silva, Nikhil Simha, Anirban Banerjee, Brian Smith, Tim Williamson, Serhat Yilmaz, Weitao Chen, and Guoqiang Jerry Chen) [<em>ICDE '20</em>]</li>
                 </ul>
+            </td>
+            <td>
             </td>
         </tr>
     </tbody>

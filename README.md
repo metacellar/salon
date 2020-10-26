@@ -54,11 +54,11 @@ Salon for paper reading
         </tr>
         <tr>
             <td rowspan="4">2020-10-26</td>
-            <td>topic</td>
-            <td>author</td>
+            <td>GAN</td>
+            <td>aak1247</td>
             <td>
                 <ul>
-                    <li><a href="address" rel="nofollow"><strong>title</strong></a> (author) [<em>reference</em>]</li>
+                    <li><a href="address" rel="nofollow" href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"><strong>Generative Adversarial Nets</strong></a> (author) [<em>NIPS Proceedings 2014</em>]</li>
                 </ul>
             </td>
             <td>

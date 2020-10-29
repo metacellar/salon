@@ -63,7 +63,7 @@ Salon for paper reading
             </td>
             <td>
                 <ul>
-                    <li><a href="address" rel="nofollow" href="https://shimo.im/docs/Gxjg338xJhXHYRtt"><strong>Notes/Generative Adversarial Nets</strong></a></li>
+                    <li><a rel="nofollow" href="https://shimo.im/docs/Gxjg338xJhXHYRtt"><strong>Notes/Generative Adversarial Nets</strong></a></li>
                 </ul>
             </td>
         </tr>

@@ -53,7 +53,7 @@ Salon for paper reading
             </td>
         </tr>
         <tr>
-            <td rowspan="4">2020-10-26</td>
+            <td rowspan="3">2020-10-26</td>
             <td>GAN</td>
             <td>aak1247</td>
             <td>
@@ -68,17 +68,6 @@ Salon for paper reading
             </td>
         </tr>
         <tr>
-            <td>topic</td>
-            <td>author</td>
-            <td>
-                <ul>
-                    <li><a href="address" rel="nofollow"><strong>title</strong></a> (author) [<em>reference</em>]</li>
-                </ul>
-            </td>
-            <td>
-            </td>
-        </tr>
-            <tr>
             <td>RDD</td>
             <td>c1</td>
             <td>

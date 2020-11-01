@@ -63,7 +63,8 @@ Salon for paper reading
             <td>aak1247</td>
             <td>
                 <ul>
-                    <li><a href="address" rel="nofollow" href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"><strong>Generative Adversarial Nets</strong></a> (author) [<em>NIPS Proceedings 2014</em>]</li>
+                    <li><a rel="nofollow" href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"><strong>Generative Adversarial Nets</strong></a> (Ian J. Goodfellow, Jean Pouget-Abadiey, Mehdi Mirza, Bing Xu, David Warde-Farley,
+Sherjil Ozairz, Aaron Courville, Yoshua Bengio) [<em>NIPS Proceedings 2014</em>]</li>
                 </ul>
             </td>
             <td>

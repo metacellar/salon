@@ -123,6 +123,23 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
                 </ul>
             </td>
         </tr>
+        <tr>
+            <td>Federated Learning</td>
+            <td>Vander Chen</td>
+            <td>
+                <ul>
+                    <li><a href="https://ieeexplore.ieee.org/abstract/document/9060868" rel="nofollow"><strong>Federated Learning in Mobile Edge Networks: A Comprehensive Survey</strong></a> (Lim, Wei Yang Bryan, Nguyen Cong Luong, Dinh Thai Hoang, Yutao Jiao, Ying-Chang Liang, Qiang Yang, Dusit Niyato, and Chunyan Miao) [<em>IEEE Communications Surveys & Tutorials 2020</em>]</li>
+                    <li><a href="https://dl.acm.org/doi/abs/10.1145/3298981" rel="nofollow"><strong>Federated Machine Learning: Concept and Applications</strong></a> (Yang, Qiang, Yang Liu, Tianjian Chen, and Yongxin Tong) [<em>ACM Transactions on Intelligent Systems and Technology 2019</em>]</li>
+                </ul>
+            </td>
+            <td>
+              <ul>
+                    <li>
+                        <a href="https://address" rel="nofollow"><strong>Notes(TBD)</strong>
+                    </li>
+                </ul>
+            </td>
+        </tr>
     </tbody>
 </table>
 

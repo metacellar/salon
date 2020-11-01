@@ -23,6 +23,11 @@ Salon for paper reading
                 </ul>
             </td>
             <td>
+              <ul>
+                    <li>
+                        <a href="https://sail.se.sjtu.edu.cn/post/clipper/" rel="nofollow"><strong>Clipper Notes</strong>
+                    </li>
+                </ul>
             </td>
         </tr>
         <tr>
@@ -100,5 +105,25 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
             </td>
         </tr>
     </tbody>
+    <tbody>
+        <tr>
+            <td rowspan="3">2020-11-01</td>
+            <td>Stream Processing</td>
+            <td>linxuyalun</td>
+            <td>
+                <ul>
+                    <li><a href="https://www.usenix.org/system/files/conference/atc18/atc18-pekhimenko.pdf" rel="nofollow"><strong>TerseCades: Efficient Data Compression in Stream Processing</strong></a> (Gennady Pekhimenko, University of Toronto; Chuanxiong Guo, Bytedance Inc.; Myeongjae Jeon, Microsoft Research; Peng Huang, Johns Hopkins University; Lidong Zhou, Microsoft Research) [<em>USENIX ATC'18</em>]</li>
+                </ul>
+            </td>
+            <td>
+              <ul>
+                    <li>
+                        <a href="https://address" rel="nofollow"><strong>Notes(TBD)</strong>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
 </table>
+
 

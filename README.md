@@ -108,7 +108,7 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
     </tbody>
     <tbody>
         <tr>
-            <td rowspan="3">2020-11-01</td>
+            <td rowspan="3">TBD</td>
             <td>Stream Processing</td>
             <td>linxuyalun</td>
             <td>
@@ -125,6 +125,25 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
             </td>
         </tr>
         <tr>
+            <td>AI Sercuity</td>
+            <td>Vander Chen</td>
+            <td>
+                <ul>
+                    <li><a href="https://www.usenix.org/conference/usenixsecurity19/presentation/xiao" rel="nofollow"><strong>Seeing is Not Believing: Camouflage Attacks on Image Scaling Algorithms</strong></a> (Qixue Xiao, Department of Computer Science and Technology, Tsinghua University and 360 Security Research Labs; Yufei Chen, School of Electronic and Information Engineering, Xi’an Jiaotong University and 360 Security Research Labs; Chao Shen, School of Electronic and Information Engineering, Xi’an Jiaotong University; Yu Chen, Department of Computer Science and Technology, Tsinghua University and Peng Cheng Laboratory; Kang Li, Department of Computer Science, University of Georgia) [<em>USENIX Security '19</em>]</li>
+                </ul>
+            </td>
+            <td>
+              <ul>
+                    <li>
+                        <a href="https://address" rel="nofollow"><strong>Notes(TBD)</strong>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+        <tbody>
+        <tr>
+            <td rowspan="3">TBD</td>
             <td>Federated Learning</td>
             <td>Vander Chen</td>
             <td>

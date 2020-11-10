@@ -140,6 +140,17 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
                 </ul>
             </td>
         </tr>
+        <tr>
+            <td>TSDB</td>
+            <td>c1</td>
+            <td>
+                <ul>
+                    <li><a href="https://fabxc.org/tsdb/" rel="nofollow"><strong>Writing a Time Series Database from Scratch</strong></a></li>
+                </ul>
+            </td>
+            <td>
+            </td>
+        </tr>
     </tbody>
         <tbody>
         <tr>

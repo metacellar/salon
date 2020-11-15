@@ -125,11 +125,12 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
             </td>
         </tr>
         <tr>
-            <td>AI Sercuity</td>
+            <td>Federated Learning</td>
             <td>Vander Chen</td>
             <td>
                 <ul>
-                    <li><a href="https://www.usenix.org/conference/usenixsecurity19/presentation/xiao" rel="nofollow"><strong>Seeing is Not Believing: Camouflage Attacks on Image Scaling Algorithms</strong></a> (Qixue Xiao, Department of Computer Science and Technology, Tsinghua University and 360 Security Research Labs; Yufei Chen, School of Electronic and Information Engineering, Xi’an Jiaotong University and 360 Security Research Labs; Chao Shen, School of Electronic and Information Engineering, Xi’an Jiaotong University; Yu Chen, Department of Computer Science and Technology, Tsinghua University and Peng Cheng Laboratory; Kang Li, Department of Computer Science, University of Georgia) [<em>USENIX Security '19</em>]</li>
+                    <li><a href="https://ieeexplore.ieee.org/abstract/document/9060868" rel="nofollow"><strong>Federated Learning in Mobile Edge Networks: A Comprehensive Survey</strong></a> (Lim, Wei Yang Bryan, Nguyen Cong Luong, Dinh Thai Hoang, Yutao Jiao, Ying-Chang Liang, Qiang Yang, Dusit Niyato, and Chunyan Miao) [<em>IEEE Communications Surveys & Tutorials 2020</em>]</li>
+                    <li><a href="https://dl.acm.org/doi/abs/10.1145/3298981" rel="nofollow"><strong>Federated Machine Learning: Concept and Applications</strong></a> (Yang, Qiang, Yang Liu, Tianjian Chen, and Yongxin Tong) [<em>ACM Transactions on Intelligent Systems and Technology 2019</em>]</li>
                 </ul>
             </td>
             <td>
@@ -155,12 +156,11 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
         <tbody>
         <tr>
             <td rowspan="3">TBD</td>
-            <td>Federated Learning</td>
+            <td>AI Sercuity</td>
             <td>Vander Chen</td>
             <td>
                 <ul>
-                    <li><a href="https://ieeexplore.ieee.org/abstract/document/9060868" rel="nofollow"><strong>Federated Learning in Mobile Edge Networks: A Comprehensive Survey</strong></a> (Lim, Wei Yang Bryan, Nguyen Cong Luong, Dinh Thai Hoang, Yutao Jiao, Ying-Chang Liang, Qiang Yang, Dusit Niyato, and Chunyan Miao) [<em>IEEE Communications Surveys & Tutorials 2020</em>]</li>
-                    <li><a href="https://dl.acm.org/doi/abs/10.1145/3298981" rel="nofollow"><strong>Federated Machine Learning: Concept and Applications</strong></a> (Yang, Qiang, Yang Liu, Tianjian Chen, and Yongxin Tong) [<em>ACM Transactions on Intelligent Systems and Technology 2019</em>]</li>
+                    <li><a href="https://www.usenix.org/conference/usenixsecurity19/presentation/xiao" rel="nofollow"><strong>Seeing is Not Believing: Camouflage Attacks on Image Scaling Algorithms</strong></a> (Qixue Xiao, Department of Computer Science and Technology, Tsinghua University and 360 Security Research Labs; Yufei Chen, School of Electronic and Information Engineering, Xi’an Jiaotong University and 360 Security Research Labs; Chao Shen, School of Electronic and Information Engineering, Xi’an Jiaotong University; Yu Chen, Department of Computer Science and Technology, Tsinghua University and Peng Cheng Laboratory; Kang Li, Department of Computer Science, University of Georgia) [<em>USENIX Security '19</em>]</li>
                 </ul>
             </td>
             <td>

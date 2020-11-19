@@ -160,7 +160,7 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
             <td>Vander Chen</td>
             <td>
                 <ul>
-                    <li><a href="https://arxiv.org/abs/1312.5602" rel="nofollow"><strong>Seeing is Not Believing: Camouflage Attacks on Image Scaling Algorithms</strong></a> (Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, Martin Riedmiller) [<em>NIPS '13</em>]</li>
+                    <li><a href="https://arxiv.org/abs/1312.5602" rel="nofollow"><strong>Playing Atari with Deep Reinforcement Learning</strong></a> (Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, Martin Riedmiller) [<em>NIPS '13</em>]</li>
                 </ul>
             </td>
             <td>

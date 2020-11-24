@@ -155,6 +155,25 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
     </tbody>
         <tbody>
         <tr>
+            <td rowspan="3">2020-11-17</td>
+            <td>Disruptor</td>
+            <td>aak1247</td>
+            <td>
+                <ul>
+                    <li><a href="http://cdn.aak1247.cn/salon/Disruptor-1.0.pdf" rel="nofollow"><strong>Disriptor 1.0</strong></a> (Martin Thompson, Dave Farley, Dave Farley, Patricia Gee, Andrew Stewart) </li>
+                </ul>
+            </td>
+            <td>
+              <ul>
+                    <li>
+                        <a href="https://address" rel="nofollow"><strong>Slides(TBD)</strong>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
             <td rowspan="3">TBD</td>
             <td>Reinforcement Learning</td>
             <td>Vander Chen</td>

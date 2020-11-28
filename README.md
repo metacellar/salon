@@ -103,6 +103,12 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
                 </ul>
             </td>
             <td>
+                <ul>
+                  <li><a href="https://github.com/sjtu-sail/seminar/blob/master/posts/20201026.md" rel="nofollow"><strong>Notes of Turbine</strong></a>
+                  </li>
+                  <li><a href="https://github.com/sjtu-sail/seminar/blob/master/slides/20201026-turbine.pdf" rel="nofollow"><strong>Slides of Turbine</strong></a>
+                  </li>
+                </ul>
             </td>
         </tr>
     </tbody>
@@ -119,7 +125,10 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
             <td>
               <ul>
                     <li>
-                        <a href="https://address" rel="nofollow"><strong>Notes(TBD)</strong>
+                      <a href="https://github.com/sjtu-sail/seminar/blob/master/posts/20201102.md" rel="nofollow"><strong>Notes of TerseCades</strong></a>
+                    </li>
+                <li>
+                      <a href="https://github.com/sjtu-sail/seminar/blob/master/slides/20201102-tersecades.pdf" rel="nofollow"><strong>Slides of TerseCades</strong></a>
                     </li>
                 </ul>
             </td>
@@ -174,24 +183,28 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
     </tbody>
     <tbody>
         <tr>
-            <td rowspan="3">TBD</td>
-            <td>Reinforcement Learning</td>
-            <td>Vander Chen</td>
+            <td rowspan="3">2020-11-23</td>
+            <td>Serverless</td>
+            <td>linxuyalun</td>
             <td>
                 <ul>
-                    <li><a href="https://arxiv.org/abs/1312.5602" rel="nofollow"><strong>Playing Atari with Deep Reinforcement Learning</strong></a> (Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, Martin Riedmiller) [<em>NIPS '13</em>]</li>
+                    <li><a href="http://www.vldb.org/pvldb/vol13/p2438-sreekanti.pdf" rel="nofollow"><strong>Cloudburst: Stateful Functions-as-a-Service</strong></a> (Vikram Sreekanti, Chenggang Wu, Xiayue Charles Lin, Johann Schleier-Smith, Joseph E. Gonzalez, Joseph M. Hellerstein, Alexey Tumanov) [<em>VLDB '20</em>]</li>
                 </ul>
             </td>
             <td>
               <ul>
                     <li>
-                        <a href="https://address" rel="nofollow"><strong>Notes(TBD)</strong>
+                      <a href="https://github.com/sjtu-sail/seminar/blob/master/posts/20201116.md" rel="nofollow"><strong>Notes of Cloudburst</strong></a>
+                    </li>
+                <li>
+                      <a href="https://github.com/sjtu-sail/seminar/blob/master/slides/20201116-cloudburst.pdf" rel="nofollow"><strong>Slides of Cloudburst</strong></a>
                     </li>
                 </ul>
             </td>
         </tr>
     </tbody>
 </table>
+
 
 
 

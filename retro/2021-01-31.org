@@ -1,8 +1,8 @@
 #+OPTIONS: \n:t
 * Salon 头脑风暴 & retrospective meeting
-  
+
   1. 每次几个人讲？
- 
+
      *A*: 每次 2 人讲，每个人限制时间 30min (20min 讲，10min QA)
   2. 频率 - 一周一次会不会太频繁？两周一次呢？
 

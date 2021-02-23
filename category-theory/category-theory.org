@@ -1,0 +1,114 @@
+* Category Theory
+  
+** Where did I come from?
+   1. Learn =python=, naturally fall in love with the concise syntax of
+      it's =list-comprehension=, and eventually replaced all my =for=
+      loops with it.
+   2. Got a sense of functional programming, and started to learn
+      =Scala=, along with the thoughts of =SICP=.
+   3. =map=, =flatMap=, =filter=, =reduce=, =fold=, etc. All of these
+      wonderful functions are great indeed, but, what's the magic behind
+      them?
+
+   for example, we know that
+   #+begin_src python
+     [x * x for x in range(10)]
+   #+end_src
+
+   is exactly
+   #+begin_src python
+     list(map(lambda x: x * x, range(10)))
+   #+end_src
+
+   that's an easy trick indeed, but what about this one?
+   #+begin_src python
+     [x * y for x in range(10) for y in range(10)]
+   #+end_src
+
+   1-min to figure out...
+  
+   it's easy to represent using =for= loops,
+   #+begin_src python
+     ls = []
+     for x in range(10):
+        for y in range(10):
+           ls.append(x * y)
+   #+end_src
+
+   and we know that the results are the same.
+
+   but as a syntactic-sugar, what exactly the interpreter does when we
+   type the =list-comprehension= above? How does it *compose* the two
+   =for= segment in it?
+   #+begin_src python
+     reduce(list.__add__, map(lambda x: map((lambda x, y: x * y), range(10)), range(10)))
+   #+end_src
+
+   This leads me the realm of =Category Theory=. As a theory foundation
+   of the functional code I write so that I know there can be no bug
+   hide in those structures.
+
+** What is Category Theory?
+
+   #+begin_quote
+   什么时候陈老师就可以不教离散数学了？等你们那些编程语言达到我离散数学
+   语言的高度，我陈老师就可以不教离散数学了。
+
+   ------陈老师
+   #+end_quote 
+   
+   Let's start with an image.
+   #+ATTR_ORG: :width 600
+   [[./img/math-map.jpg]]
+
+   It says that category theory is the Mathematics of Mathematics.
+   From a very high perspective, when the abstraction erase all the
+   "non-necessary" details, All the branch of Mathematics loops the same.
+   =Category theory= study about the common properties of all those
+   different branch of Mathematics.
+
+** Category: The essence of composition
+   
+   A category consist of =Objects= and =Arrows= goes between them.
+
+   An =Arrow= is called =Morphism= in category theory, Let's think of
+   functions in programming languages (actually procedures that mimic
+   functions).
+
+   If a function =f= takes a value of type =A= and returns a =B=, and
+   another function =g= takes a =B= and returns a =C=. We can compose
+   them by passing the value of =f= to =g=, and now we have defined a
+   new function that takes =A= and returns =B=
+
+   =g ∘ f= as "=g= after =f="
+
+*** Properties of composition
+    - composition is Associable
+ 
+    #+begin_quote
+    h ∘ (g ∘ f) = (h ∘ g) ∘ f = h ∘ g ∘ f
+    #+end_quote
+
+    - For every object A, there is an arrow called =unit=, which goes
+      from =A= to =A=, and thus:
+ 
+    #+begin_quote
+    f ∘ id(A) = f
+    id(A) ∘ f = f
+    #+end_quote
+
+    
+*** The essence of programming
+    Remember what's the element of programming in the book =SICP=?
+
+    - primitive expressions, which represent the simplest entities the
+      language is concerned with
+      
+    - means of combination, by which compound elements are built from
+      simpler ones
+      
+    - means of abstraction, by which compound elements can be named and
+      manipulated as units.
+     
+    the essence of programming is composition, remember the example of
+    square root?

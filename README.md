@@ -14,4 +14,4 @@
 | 2021/03/10 | linxuyalun    | rop & CFI                          |                                                                                                                |
 | 2021/03/29 | linxuyalun    | Dive into istio                    | [Slides](slides/istio.pdf)                                                                                     |
 | 2021/04/06 | c1            | Hands on Prometheus                | [Doc](./docs/prometheus/hands-on-prometheus.org)                                                                          |
-
+| 2021/04/06 | linkinpark213 | Overview of Object Detection 2     | [Slides](https://docs.google.com/presentation/d/1sNDDOJFU69esobaqTg-ldE-9Lqww1Rv3UkztQXbgjoU/edit?usp=sharing)                                                                          |

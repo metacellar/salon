@@ -13,5 +13,5 @@
 | 2021/03/01 | aak1247       | Valuation                          |                                                                                                                |
 | 2021/03/10 | linxuyalun    | rop & CFI                          |                                                                                                                |
 | 2021/03/29 | linxuyalun    | Dive into istio                    | [Slides](slides/istio.pdf)                                                                                     |
-| 2021/04/06 | c1            | Hands on Prometheus                | [Doc](./docs/hands-on-prometheus.org)                                                                          |
+| 2021/04/06 | c1            | Hands on Prometheus                | [Doc](./docs/prometheus/hands-on-prometheus.org)                                                                          |
 

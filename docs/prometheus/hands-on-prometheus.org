@@ -1,0 +1,153 @@
+* Hands on Promethus
+
+** 什么是 Prometheus
+
+   普罗米修斯是由 SoundCloud 开源的指标监控引擎，近几年来成为了云原生可观测性
+   SIG 指标监控领域的事实标准。事实上 Prometheus 甚至比 kubernetes 本身还要历史
+   悠久，因此我们可以看到 Prometheus 没有对分布式，以及云原生等概念做任何假设，
+   只是在其服务发现的目标为 kubernetes 等技术做了特别的配置项。
+
+   提到 Prometheus，我们就要认识到它是一个基于时序数据 (time series data) 的指标
+   监控引擎，提供时序数据的存储，索引以及一套查询语言。
+
+*** 指标与时序数据
+
+    既然 Prometheus 的一切都围绕着时序数据展开，那么什么是时序数据？
+
+    #+begin_src text
+    identifier -> (t0, v0), (t1, v1), (t2, v2), (t3, v3), ....
+    #+end_src
+
+    时序数据即一个由 ~(timestamp, float_value)~ 二元组构成的序列。
+
+    有了时序数据的概念我们就可以得知，在 Prometheus 的范畴内，什么是指标。
+
+    即：一组由时序数据描述的，固定上下文的，随时间变化的系统中的某项特定语义的
+    值，指标具备一个唯一的名字和数个可能具备特殊语义的 label。
+
+    顺带一提，Prometheus 作为一个指标监控引擎不会试图理解指标数据以及其 label 的
+    语义。
+
+*** 局限性
+
+    如前文中提到的，Prometheus 对自身有着极其清晰的定位，因此我们不能指望使用
+    prometheus 来解决一切可观测性问题，如同所有软件一般，Prometheus 有其自身的局
+    限性：
+
+    1. 不能做到 100% 精确。
+    2. 不能描述非时序信息。
+
+*** 架构
+    如前文描述，Prometheus 是一个典型的单体应用，但可以轻易做到高可用。
+    #+ATTR_ORG: :width 700
+    [[./img/prometheus-architecture.png]]
+** 部署 Prometheus
+   部署可以参考 [[https://github.com/Thrimbda/prometheus-set-up/blob/master/setup-how-to/setup-how-to.md][Prometheus set up]]，此处就不再赘述。
+
+** 指标类型以及 PromQL
+   考虑一个例子：
+   #+begin_src text
+    sum(rate(
+         node_cpu_seconds_total{mode!=”idle”,
+                                mode!=”iowait”,
+                                mode!~”^(?:guest.*)$”
+                                }[5m])) BY (instance)
+   #+end_src
+   他代表什么意思呢？
+
+   我们将带着这个问题深入下去，并介绍几种指标的类型。
+
+*** 从哪查询？
+    1. Prometheus web UI
+
+       这是 Prometheus 自带的查询界面
+       #+ATTR_ORG: :width 700
+       [[./img/web-ui.png]]
+
+    2. Grafana
+       #+ATTR_ORG: :width 700
+       [[./img/grafana.png]]
+*** 指标和 PromQL
+
+    Prometheus 提供了一套类似 SQL 的查询语言，通过一系列的 function 和
+    aggregation operator 对于原始指标进行聚合和计算，其中每一个指标都可以通过其
+    label 进行过滤，从而我们可以通过 Prometheus 收集到的这些原始指标来表达我们想
+    要的各种指标。
+
+**** 数据类型
+     promQL 中支持如下四种数据类型：
+
+     1. Instant vector - a set of time series containing a single sample for
+        each time series, all sharing the same timestamp
+     2. Range vector - a set of time series containing a range of data points
+        over time for each time series
+     3. Scalar - a simple numeric floating point value
+     4. String - a simple string value; currently unused
+
+     最简单的有意义的 PromQL 就是原始指标（instant vector）了，原始指标即是 Promethus 通过服务发现定时拉取
+     得到的原始 time series 数据。
+
+**** 指标命名规则
+     指标的命名规则曾经毫无章法，好在现在情况发生了改变，Prometheus 提供了一个清
+     晰的指标命名[[https://prometheus.io/docs/practices/naming/][规则]]：
+     #+begin_src text
+     {application prefix}_{resource}_{unit}
+     #+end_src
+     从而我们可以轻易根据这类命名规则找到我们想要的指标。
+
+**** 指标类型
+     指标有如下四种：
+
+     1. Gauge
+     2. Counter
+     3. Summary
+     4. Histogram
+
+     每个指标都拥有一些 label，对于 prometheus 来说 label 越少越好。
+     我们将着重介绍 Gauge 和 Counter。
+
+**** 例子
+
+     Gauge 类指标反映了一个实时变化的值，例如：
+
+     #+begin_src text
+     node_memory_Active_bytes
+     #+end_src
+
+     或
+
+     #+begin_src text
+     1 - sum(node_memory_MemAvailable_bytes) by (node) / sum(node_memory_MemTotal_bytes) by (node)
+     #+end_src
+
+     其中 ~sum(vector expression) by (<label list>)~ 是一个 aggregation operator，
+     基于 ~by~ 子句括号中的 ~<label list>~ 分组进行相加聚合操作。
+
+     Counter 类指标顾名思义只增不减，例如：
+
+     #+begin_src text
+     node_cpu_seconds_total
+     #+end_src
+
+     #+begin_src text
+     sum(rate(
+          node_cpu_seconds_total{mode!=”idle”,
+                                 mode!=”iowait”,
+                                 mode!~”^(?:guest.*)$”
+                                 }[5m])) BY (instance)
+     #+end_src
+
+     - 其中大括号内注明了过滤条件，支持正则表达式。
+     - rate 是一个对 range vector 进行斜率计算的 function，而 ~[5m]~ 则声明了一个
+       range vector，意为每个数据点上都有 5 分钟的数据。
+
+     现在，我们应当就可以解释本章节最开始写下的 PromQL 的含义了。
+
+*** 思考题
+    - 为什么需要 counter 类指标，不能直接通过 gauge 类指标表达吗？
+    - 我们怎么得到 CPU 使用率的指标？
+
+*** 参考资料
+    - [[https://prometheus.io/docs/introduction/overview/][Prometheus 官方文档]]
+    - [[https://github.com/Thrimbda/prometheus-set-up/blob/master/setup-how-to/setup-how-to.md][Prometheus set up]]
+    - [[https://github.com/lichuan0620/k8s-sre-learning-notes/blob/master/observability/OBSV-101.md][可观测性：概念和最佳实践]]

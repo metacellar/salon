@@ -145,7 +145,7 @@
 
 *** 思考题
     - 为什么需要 counter 类指标，不能直接通过 gauge 类指标表达吗？
-    - 我们怎么得到 CPU 使用率的指标？
+    - 我们怎么得到 CPU 饱和度的指标？
 
 *** 参考资料
     - [[https://prometheus.io/docs/introduction/overview/][Prometheus 官方文档]]

@@ -197,7 +197,7 @@
      want it be singleton!
 
      #+begin_src scala
-      val f44: Unit => Int = _ => 44
+      def f44: Unit => Int = _ => 44
      #+end_src
 
      in scala we have a type default to represent the singleton type, as
@@ -211,6 +211,8 @@
       sealed trait Bool
       case object True extends Bool
       case object False extends Bool
+
+      def x: Boolean
      #+end_src
 
      and of cause it so useful that we have built-in types in almost
@@ -310,7 +312,6 @@
 
      and again, Terminal object is unique up to isomorphism.
 
-
 **** Duality
      As we can see, initail object and terminal object has some sort of
      symmetry in the shape, the only difference between them are the
@@ -334,9 +335,13 @@
       def first[A, B]: (A, B) => A = {
         case (x, y) => x
       }
+      first((1, "haha"))
+      1
       def second[A, B]: (A, B) => B = {
         case (x, y) => y
       }
+      second((1, "haha"))
+      "haha"
      #+end_src
 
      voila! now we have three types and two functions like this:
@@ -514,7 +519,6 @@
 
    Let's dig the properties of Product.
 
-
 *** Commutative of Product
     A product is not strictly commutative, a ~(Int, Boolean)~ is not a
     ~(Boolean, Int)~, yet they are, however, commutative up to
@@ -527,7 +531,6 @@
     #+end_src
 
     and the inverse of ~swap~ is ~swap~ itself.
-
 
 *** Associative of Product
     By embedding, we can store an arbitrary numbers of types into a
@@ -546,7 +549,6 @@
      }
     #+end_src
 
-
 *** Unit of Product
     What's the identity of product?
 
@@ -558,7 +560,6 @@
      }
      def rho_inv[A]: A => (A, Unit) = x => (x, ())
     #+end_src
-
 
 *** Property of Product
     Now with commutative, associative and unit, Eureka! it's a
@@ -606,10 +607,13 @@
     l(a) = 1 / (1 - a)
     l(a) = 1 + a + a * a + a * a * a ...
     #+end_quote
+    #+begin_src scala
+    T[A] = Either[Unit, (A, T[A])]
+    #+end_src
 
     now what is this?
     #+begin_src scala
      sealed trait List[+A]
      case object Nil extends List[Nothing]
-     case object Cons[+A](head: A, tail: List[A]) extends List[A]
+     case class Cons[+A](head: A, tail: List[A]) extends List[A]
     #+end_src

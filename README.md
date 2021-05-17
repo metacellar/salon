@@ -243,4 +243,5 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 | Date       | Speaker | Topic | Reference |
 | ---------- | ------- | ----- | --------- |
 | 2021/04/21 |         |       |           |
+| 2021/05/17 | linkinpark213 | Recommender Systems - Basic Algorithms | [Slides](https://docs.google.com/presentation/d/1YTGr_WM5wtB3I9H2ftB540p4AuFH7qeNygtNydHwyEA/edit?usp=sharing) |
 

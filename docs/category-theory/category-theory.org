@@ -112,3 +112,507 @@
      
     the essence of programming is composition, remember the example of
     square root?
+
+** Epimorphisms, Monomorphisms, Isomorphism
+
+   Now consider our programming languages,
+** Types and Categorys
+
+   Types are not necessary for programming, consider an extreme example:
+   machine language, all programming languages are compiled to machine
+   language in one way or another.
+
+   So why do we need types? can we just write code without types? sure
+   we can, any monkey given a keyboard and plenty of time can produce
+   random bytes that would accept and run. But we human want something
+   meaningful, offload our burden into machines so that we could focus
+   on what really important and matters.
+
+   consider this:
+   #+begin_src scala
+    def x: Int
+   #+end_src
+
+   when we declare ~x~ with type ~Int~, what we are trying to say is that ~x~
+   is an element of *set* ~Int~, range from -2147483648 to 2147483647.
+
+   Sets are a very special category (and a nice one!), because in fact
+   we can pick elements inside a set, and learn it's property by the
+   oprations of these elements.
+
+   For example:
+   #+begin_src scala
+    def isPositive(x: Int): Bool = x > 0
+   #+end_src
+
+   #+begin_src
+    > isPositive(2)
+    true
+
+    > isPositive(-2)
+    false
+   #+end_src
+
+   Now in the world of category, we cannot look inside of an object,
+   from the function(morphism) above, all we can know is that it maps
+   from ~Int~ to ~Bool~
+
+   #+begin_src dot :file img/int_bool.png :cmdline -Tpng
+    digraph G {
+      size="2,2"
+      Int -> Bool
+    }
+   #+end_src
+
+   #+results:
+   [[file:img/int_bool.png]]
+
+   #+begin_src scala
+    def myprint(x: String) = print(x)
+
+    def myexception(x: Int) = throw new RuntimeException("wrong!")
+   #+end_src
+
+   yet what are the return type of the functions above?
+
+*** Example of types
+    apart from the usual types we meet every day, when considering types
+    are actually set, we can study some very special types.
+
+**** Empty set and Nothing
+     so what's the simplist set?
+
+     It't empty set!
+     in scala, we have a type called ~Nothing~ representing the empty set,
+     and of cause we cannot construct a value of this type!
+
+     now we can define a function:
+     #+begin_src scala
+     def absurd[A]: Nothing => A
+     #+end_src
+
+     quite true of its name, we cannot even call the function because of
+     there aren't any value of the type ~Nothing~, and the function
+     ~myexception~'s return type is of cause ~Nothing~
+
+**** Singleton set and Unit
+     if a type has only one value, then it can represent any thing we
+     want it be singleton!
+
+     #+begin_src scala
+      val f44: Unit => Int = _ => 44
+     #+end_src
+
+     in scala we have a type default to represent the singleton type, as
+     a function accept whatever value and return 44, or a function takes
+     a ~String~ and return something we don't care.
+
+**** Two element set and Bool
+     if a type has two value, what is it? It's bool!
+
+     #+begin_src scala
+      sealed trait Bool
+      case object True extends Bool
+      case object False extends Bool
+     #+end_src
+
+     and of cause it so useful that we have built-in types in almost
+     every programming language...
+
+** Product and coproduct
+
+*** Isomorphism
+
+    In category theory, we don't know if two object are the same, we
+    cannot know if two object are the same. Yet we if two
+    arrows(morphisms) are the same are well defined.
+
+    so now, we can define isomorphism
+
+    #+begin_src dot :file img/isomorphism.png :cmdline -Tpng
+     digraph G {
+       size="4,4"
+       rankdir="LR"
+       a -> b [label="f"]
+       b -> a [label="g"]
+       a -> a [label=<id<SUB>a</SUB>>]
+       b -> b [label=<id<SUB>b</SUB>>]
+     }
+    #+end_src
+
+    #+results:
+    [[file:img/isomorphism.png]]
+
+    #+begin_quote
+    g ∘ f = id_a
+    f ∘ g = id_b
+    #+end_quote
+
+    so we can say that f and g are the inverse of each other.
+
+*** Initial object and Terminal object
+**** Initial Object
+     Consider a category with a bunch of objects and with many morphisms
+     as arrows, like a web, if there is one, the initial object has a
+     morphism to every other objects.
+
+     #+begin_src dot :file img/initial.png :cmdline -Tpng
+      digraph G {
+        size="8,6"
+        rankdir="BT"
+        InitialObject -> a
+        InitialObject -> b
+        InitialObject -> c
+        InitialObject -> d
+        a -> b
+        c -> a
+      }
+     #+end_src
+
+     #+results:
+     [[file:img/initial.png]]
+
+     and of cause there can be multiple objects that can be the candidate
+     of initial object, but according to the definition of initial
+     object, they must have the unique isomorphism, so the inital object
+     is unique up to isomorphism.
+
+     As for our types, it is our ~Nothing~ type!
+
+     and the morphisms from initial object to every other object in
+     types is ~absurd~, so yeah I can give you anything, as long as you
+     give me a value of ~Nothing~ :)
+
+**** Terminal Object
+     Also, consider a category with a bunch of objects, there can be an
+     object that has morphisms from every other object to it.
+
+     #+begin_src dot :file img/terminal.png :cmdline -Tpng
+      digraph G {
+        size="8,6"
+        rankdir="BT"
+        a -> b
+        c -> a
+        a -> TerminalObject
+        b -> TerminalObject
+        c -> TerminalObject
+        d -> TerminalObject
+      }
+     #+end_src
+
+     #+results:
+     [[file:img/terminal.png]]
+
+     it pretty clear that we have functions in our programming languages
+     that won't return any value (Actually it's that we don't care its
+     value)
+
+     #+begin_src scala
+      def unit[A]: A => Unit = _ => ()
+     #+end_src
+
+     and again, Terminal object is unique up to isomorphism.
+
+
+**** Duality
+     As we can see, initail object and terminal object has some sort of
+     symmetry in the shape, the only difference between them are the
+     direction of the morphisms.
+
+     It's a very important property of categorys, we shall see the
+     example soon.
+
+*** Product and Coproduct
+
+**** Product
+     In Set theory, product is our old friend as we call it Cartesian
+     product.
+
+     Can we generailize product to other categories?
+
+     All we that we know is a Cartesian product is a set that has two
+     part that can be project into two sets:
+
+     #+begin_src scala
+      def first[A, B]: (A, B) => A = {
+        case (x, y) => x
+      }
+      def second[A, B]: (A, B) => B = {
+        case (x, y) => y
+      }
+     #+end_src
+
+     voila! now we have three types and two functions like this:
+     #+begin_src dot :file img/cartisian_product.png :cmdline -Tpng
+      digraph G {
+        size="4,4"
+        rankdir="TB"
+        c -> a [label="p"]
+        c -> b [label="q"]
+      }
+     #+end_src
+
+     #+results:
+     [[file:img/cartisian_product.png]]
+
+     and of cause we can have a lot of objects that met this
+     requirement, so which one of them is our product?
+
+     #+begin_src dot :file img/mutiple_product.png :cmdline -Tpng
+      digraph G {
+        size="4,4"
+        rankdir="TB"
+        c1 -> a
+        c1 -> b
+        c2 -> a
+        c2 -> b
+        c3 -> a
+        c3 -> b
+        c4 -> a
+        c4 -> b
+      }
+     #+end_src
+
+     #+results:
+     [[file:img/mutiple_product.png]]
+
+     For example, can ~Int~ be our candidate product of ~Int~ and ~Bool~? Yes
+     it can!
+
+     #+begin_src scala
+      def p: Int => Int = x => x
+      def q: Int => Boolean = _ => True
+     #+end_src
+
+     It's sucks yet it met our requirement. And consider another one:
+     ~(Int, Int, Bool)~, again it can!
+
+     #+begin_src scala
+      def p: (Int, Int, Boolean) => Int = {
+        case (x, y, z) => x
+      }
+      def q: (Int, Int, Boolean) => Boolean = {
+        case (x, y, z) => z
+      }
+     #+end_src
+
+     So what's the problem? We might notice that the first one is too
+     small it has not enought information, and the second one is too
+     large that it loses informations when project.
+
+     We can define a ranking of all of our candidates: if there are a
+     unique morphism ~m~ from =c'= to =c=, then =c= is better than =c'=.
+     #+begin_src dot :file img/product.png :cmdline -Tpng
+      digraph G {
+        size="4,4"
+        rankdir="TB"
+        cprimer[label="c'"]
+        cprimer -> c[label="m"]
+        c -> a[label="p"]
+        c -> b[label="q"]
+        cprimer -> a[label="p'"]
+        cprimer -> b[label="q'"]
+      }
+     #+end_src
+
+     #+results:
+     [[file:img/product.png]]
+
+     #+begin_quote
+     p' = p ∘ m
+     q' = q ∘ m
+     #+end_quote
+
+     Now we shall see our two cases.
+
+     For the first case:
+     #+begin_src scala
+      def m: Int => (Int, Boolean) = x => (x, true)
+     #+end_src
+
+     now ~p~ and ~q~ of it will be
+     #+begin_src scala
+      def p: Int => Int = x => first(m(x)) // x
+      def p: Int => Boolean = x => second(m(x)) // true
+     #+end_src
+
+     For the second case, ~m~ seems to be unique:
+
+     #+begin_src scala
+      def m: (Int, Int, Boolean) => (Int, Boolean) = {
+        case (x, _, z) => (x, z)
+      }
+     #+end_src
+
+     We said that ~(Int, Boolean)~ is better, according to our definition
+     of betterness, can we find an ~m1~, so that we can recontruct ~first~
+     and ~second~ from ~p~ and ~q~ by compose ~m1~ with them?
+
+     #+begin_src scala
+     first == p compose m1
+     second == q compose m1
+     #+end_src
+
+     For the first case: q is always true, and if we get a false then
+     there will be no way to reconstruct it.
+
+     For the other one: we can have infinite ~m1~
+
+     #+begin_src scala
+      def m1: ((Int, Boolean)) => (Int, Int, Boolean) = {
+        case (x, b) => (x, x, b)
+      }
+      def m1: ((Int, Boolean)) => (Int, Int, Boolean) = {
+        case (x, b) => (x, 42, b)
+      }
+     #+end_src
+
+     Anyway, with the ranking system introduced, we can define the best
+     object that fits our requriment as our product.
+**** Coproduct
+     think of duality, if we inverse the arrows, we shall get a new
+     thing called coproduct.
+
+     #+begin_src dot :file img/coproduct.png :cmdline -Tpng
+      digraph G {
+        size="4,4"
+        rankdir="TB"
+        cprimer[label="c'"]
+        c -> cprimer[label="m"]
+        a -> c[label="i"]
+        b -> c[label="j"]
+        a -> cprimer[label="i'"]
+        b -> cprimer[label="j'"]
+      }
+     #+end_src
+
+     #+results:
+     [[file:img/coproduct.png]]
+
+     and the ranking changes also, if a unique morphism connecting our
+     =c= to any other =c'=, then it's called coproduct.
+
+     As programmers we are familiar with coproduct as well: Sum type, or
+     distinct union.
+
+     #+begin_src scala
+      sealed trait Contact
+      case class PhoneNum(num: Int) extends Contact
+      case class EmailAddr(addr: String) extends Contact
+     #+end_src
+
+     a more generic type called ~Either~ in scala
+     #+begin_src scala
+      sealed trait Either[A, B]
+      case class Left[A](v: A) extends Either[A, Nothing]
+      case class Right[B](v: B) extends Either[Nothing, B]
+     #+end_src
+
+     Like the sum of types.
+
+** ADT
+
+   Now, with the foundation we have built, let's meet some mighty
+   friends.
+
+   Let's dig the properties of Product.
+
+
+*** Commutative of Product
+    A product is not strictly commutative, a ~(Int, Boolean)~ is not a
+    ~(Boolean, Int)~, yet they are, however, commutative up to
+    isomorphism.
+
+    #+begin_src scala
+     def swap[A, B]: (A, B) => (B, A) = {
+       case (x, y) => (y, x)
+     }
+    #+end_src
+
+    and the inverse of ~swap~ is ~swap~ itself.
+
+
+*** Associative of Product
+    By embedding, we can store an arbitrary numbers of types into a
+    product, and we can have it in two ways:
+
+    ~((a, b), c)~ or ~(a, (b, c))~
+
+    and again, up to isomorphism they are associative:
+
+    #+begin_src scala
+     def alpha[A, B, C]: ((A, B), C) => (A, (B, C)) = {
+       case ((x, y), z) => (x, (y, z))
+     }
+     def alpha_inv[A, B, C]: (A, (B, C)) => ((A, B), C) = {
+       case (x, (y, z)) => ((x, y), z)
+     }
+    #+end_src
+
+
+*** Unit of Product
+    What's the identity of product?
+
+    it's ~(a, ())~, again it contains the same amount of infomations as
+    ~a~, and this product has id up to isomorphism.
+    #+begin_src scala
+     def rho[A]: (A, Unit) => A {
+       case (x, ()) => x
+     }
+     def rho_inv[A]: A => (A, Unit) = x => (x, ())
+    #+end_src
+
+
+*** Property of Product
+    Now with commutative, associative and unit, Eureka! it's a
+    Commutative monoid category.
+
+*** Property of Coproduct
+    Guess what, copruduct is also a commutative monoid up to
+    isomorphism!
+
+*** Combine the two
+
+    Product is like the product in algebra, and Coproduct is like the
+    sum in algebra, let's see together, the two should have some
+    properties.
+
+    for example, we know that in algebra, =a * 0 = 0=, how about here?
+
+    what is ~(A, Nothing)~?, because we cannot find the value of nothing,
+    then we cannot have a pair with values of both ~A~ and ~Nothing~, so
+    ~(A, Nothing)~, up to isomorphism, is ~Nothing~
+
+    and what about *distributive*?
+
+    =a * (b + c) = (a * b) + (a * c)=
+
+    #+begin_src scala
+     def distro[A, B, C]: (A, Either[B, C]) => Either[(A, B), (A, C)] = {
+       case (x, either) => either match {
+         case Left(y) => Left(x, y)
+         case Right(z) => Right(x, z)
+       }
+     }
+    #+end_src
+
+    it fits!
+
+*** More interesting example
+
+    let's solve equations! see =l(a) == 1 + (a * l(a))=
+
+    #+begin_quote
+    l(a) = 1 + (a * l(a))
+    l(a) - a * l(a) = 1
+    l(a)(1 - a) = 1
+    l(a) = 1 / (1 - a)
+    l(a) = 1 + a + a * a + a * a * a ...
+    #+end_quote
+
+    now what is this?
+    #+begin_src scala
+     sealed trait List[+A]
+     case object Nil extends List[Nothing]
+     case object Cons[+A](head: A, tail: List[A]) extends List[A]
+    #+end_src

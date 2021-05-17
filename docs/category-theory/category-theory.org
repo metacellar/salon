@@ -113,9 +113,6 @@
     the essence of programming is composition, remember the example of
     square root?
 
-** Epimorphisms, Monomorphisms, Isomorphism
-
-   Now consider our programming languages,
 ** Types and Categorys
 
    Types are not necessary for programming, consider an extreme example:

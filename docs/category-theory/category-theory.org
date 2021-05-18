@@ -94,6 +94,7 @@
  
     #+begin_quote
     f ∘ id(A) = f
+
     id(A) ∘ f = f
     #+end_quote
 
@@ -154,7 +155,7 @@
    from the function(morphism) above, all we can know is that it maps
    from ~Int~ to ~Bool~
 
-   #+begin_src dot :file img/int_bool.png :cmdline -Tpng :export both :cache yes
+   #+begin_src dot :file img/int_bool.png :cmdline -Tpng :export results :cache yes
     digraph G {
       size="2,2"
       Int -> Bool
@@ -228,7 +229,7 @@
 
     so now, we can define isomorphism
 
-    #+begin_src dot :file img/isomorphism.png :cmdline -Tpng :cache yes
+    #+begin_src dot :file img/isomorphism.png :cmdline -Tpng :export results :cache yes
      digraph G {
        size="4,4"
        rankdir="LR"
@@ -244,6 +245,7 @@
 
     #+begin_quote
     g ∘ f = id_a
+
     f ∘ g = id_b
     #+end_quote
 
@@ -255,7 +257,7 @@
      as arrows, like a web, if there is one, the initial object has a
      morphism to every other objects.
 
-     #+begin_src dot :file img/initial.png :cmdline -Tpng :cache yes
+     #+begin_src dot :file img/initial.png :cmdline -Tpng :export results :cache yes
       digraph G {
         size="8,6"
         rankdir="BT"
@@ -286,7 +288,7 @@
      Also, consider a category with a bunch of objects, there can be an
      object that has morphisms from every other object to it.
 
-     #+begin_src dot :file img/terminal.png :cmdline -Tpng :cache yes
+     #+begin_src dot :file img/terminal.png :cmdline -Tpng :export results :cache yes
       digraph G {
         size="8,6"
         rankdir="BT"
@@ -345,7 +347,7 @@
      #+end_src
 
      voila! now we have three types and two functions like this:
-     #+begin_src dot :file img/cartisian_product.png :cmdline -Tpng :cache yes
+     #+begin_src dot :file img/cartisian_product.png :cmdline -Tpng :export results :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -360,7 +362,7 @@
      and of cause we can have a lot of objects that met this
      requirement, so which one of them is our product?
 
-     #+begin_src dot :file img/mutiple_product.png :cmdline -Tpng :cache yes
+     #+begin_src dot :file img/mutiple_product.png :cmdline -Tpng :export results :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -404,7 +406,7 @@
 
      We can define a ranking of all of our candidates: if there are a
      unique morphism ~m~ from =c'= to =c=, then =c= is better than =c'=.
-     #+begin_src dot :file img/product.png :cmdline -Tpng :cache yes
+     #+begin_src dot :file img/product.png :cmdline -Tpng :export results :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -422,6 +424,7 @@
 
      #+begin_quote
      p' = p ∘ m
+
      q' = q ∘ m
      #+end_quote
 
@@ -475,7 +478,7 @@
      think of duality, if we inverse the arrows, we shall get a new
      thing called coproduct.
 
-     #+begin_src dot :file img/coproduct.png :cmdline -Tpng :cache yes
+     #+begin_src dot :file img/coproduct.png :cmdline -Tpng :export results :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -602,9 +605,13 @@
 
     #+begin_quote
     l(a) = 1 + (a * l(a))
+
     l(a) - a * l(a) = 1
+
     l(a)(1 - a) = 1
+
     l(a) = 1 / (1 - a)
+
     l(a) = 1 + a + a * a + a * a * a ...
     #+end_quote
     #+begin_src scala

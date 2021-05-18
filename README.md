@@ -223,25 +223,25 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 
 ## Season 1: A New Start
 
-| Date       | Speaker       | Topic                              | Reference                                                    |
-| ---------- | ------------- | ---------------------------------- | ------------------------------------------------------------ |
-| 2021/01/31 | linxuyalun    | CV & Thread 1                      | [Slides](https://ipads.se.sjtu.edu.cn/courses/cse/slides/lec-11.pptx) |
-| 2021/02/08 | linxuyalun    | CV & Thread 2                      | [Slides](https://ipads.se.sjtu.edu.cn/courses/cse/slides/lec-11.pptx) |
-| 2021/02/08 | VanderChen    | Overview of GNN/GCN                |                                                              |
+| Date       | Speaker       | Topic                              | Reference                                                                                                      |
+| ---------- | ------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 2021/01/31 | linxuyalun    | CV & Thread 1                      | [Slides](https://ipads.se.sjtu.edu.cn/courses/cse/slides/lec-11.pptx)                                          |
+| 2021/02/08 | linxuyalun    | CV & Thread 2                      | [Slides](https://ipads.se.sjtu.edu.cn/courses/cse/slides/lec-11.pptx)                                          |
+| 2021/02/08 | VanderChen    | Overview of GNN/GCN                |                                                                                                                |
 | 2021/02/21 | linkinpark213 | Overview of Object Detection 1     | [Slides](https://docs.google.com/presentation/d/1lIFphWS1Ly-_EjigTtDLaaQXOl4ZpU0dY7oIk3XNfsg/edit?usp=sharing) |
-| 2021/02/21 | c1            | An introduction to Category Theory | [Doc](./docs/category-theory/category-theory.org)            |
-| 2021/03/01 | Bo Qiao       | An Overview of AI Ops              |                                                              |
-| 2021/03/01 | aak1247       | Valuation                          |                                                              |
-| 2021/03/10 | linxuyalun    | ROP & CFI                          | [Slides](https://ipads.se.sjtu.edu.cn/courses/cse/slides/lec-25.pptx) |
-| 2021/03/29 | linxuyalun    | Dive into istio                    | [Slides](slides/istio.pdf)                                   |
-| 2021/04/06 | c1            | Hands on Prometheus                | [Doc](./docs/prometheus/hands-on-prometheus.org)             |
+| 2021/02/21 | c1            | An introduction to Category Theory | [Doc](./docs/category-theory/category-theory.org#where-did-i-come-from)                                        |
+| 2021/03/01 | Bo Qiao       | An Overview of AI Ops              |                                                                                                                |
+| 2021/03/01 | aak1247       | Valuation                          |                                                                                                                |
+| 2021/03/10 | linxuyalun    | ROP & CFI                          | [Slides](https://ipads.se.sjtu.edu.cn/courses/cse/slides/lec-25.pptx)                                          |
+| 2021/03/29 | linxuyalun    | Dive into istio                    | [Slides](slides/istio.pdf)                                                                                     |
+| 2021/04/06 | c1            | Hands on Prometheus                | [Doc](./docs/prometheus/hands-on-prometheus.org)                                                               |
 | 2021/04/06 | linkinpark213 | Overview of Object Detection 2     | [Slides](https://docs.google.com/presentation/d/1sNDDOJFU69esobaqTg-ldE-9Lqww1Rv3UkztQXbgjoU/edit?usp=sharing) |
-| 2021/04/12 | All           | Retro                              | [Doc](https://github.com/metacellar/salon/blob/master/retro/2021-04-12.org) |
+| 2021/04/12 | All           | Retro                              | [Doc](https://github.com/metacellar/salon/blob/master/retro/2021-04-12.org)                                    |
 
 ## Season 2: Order Has been Built
 
-| Date       | Speaker | Topic | Reference |
-| ---------- | ------- | ----- | --------- |
-| 2021/04/21 |         |       |           |
+| Date       | Speaker       | Topic                                  | Reference                                                                                                      |
+| ---------- | ------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 2021/04/21 |               |                                        |                                                                                                                |
 | 2021/05/17 | linkinpark213 | Recommender Systems - Basic Algorithms | [Slides](https://docs.google.com/presentation/d/1YTGr_WM5wtB3I9H2ftB540p4AuFH7qeNygtNydHwyEA/edit?usp=sharing) |
-
+| 2021/05/17 | c1            | Category Theory - Algebra Data Types   | [Doc](./docs/category-theory/category-theory.org#types-and-categorys)                                          |

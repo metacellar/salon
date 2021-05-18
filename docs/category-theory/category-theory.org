@@ -154,7 +154,7 @@
    from the function(morphism) above, all we can know is that it maps
    from ~Int~ to ~Bool~
 
-   #+begin_src dot :file img/int_bool.png :cmdline -Tpng :cache yes
+   #+begin_src dot :file img/int_bool.png :cmdline -Tpng :export both :cache yes
     digraph G {
       size="2,2"
       Int -> Bool

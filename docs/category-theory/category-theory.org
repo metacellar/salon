@@ -154,14 +154,14 @@
    from the function(morphism) above, all we can know is that it maps
    from ~Int~ to ~Bool~
 
-   #+begin_src dot :file img/int_bool.png :cmdline -Tpng
+   #+begin_src dot :file img/int_bool.png :cmdline -Tpng :cache yes
     digraph G {
       size="2,2"
       Int -> Bool
     }
    #+end_src
 
-   #+results:
+   #+results[0a3c34204d439be68e9170896bb9ba06520a04ba]:
    [[file:img/int_bool.png]]
 
    #+begin_src scala
@@ -228,7 +228,7 @@
 
     so now, we can define isomorphism
 
-    #+begin_src dot :file img/isomorphism.png :cmdline -Tpng
+    #+begin_src dot :file img/isomorphism.png :cmdline -Tpng :cache yes
      digraph G {
        size="4,4"
        rankdir="LR"
@@ -239,7 +239,7 @@
      }
     #+end_src
 
-    #+results:
+    #+results[ee07ab296ff3a37a46eb6603612891229b023d3e]:
     [[file:img/isomorphism.png]]
 
     #+begin_quote
@@ -255,7 +255,7 @@
      as arrows, like a web, if there is one, the initial object has a
      morphism to every other objects.
 
-     #+begin_src dot :file img/initial.png :cmdline -Tpng
+     #+begin_src dot :file img/initial.png :cmdline -Tpng :cache yes
       digraph G {
         size="8,6"
         rankdir="BT"
@@ -268,7 +268,7 @@
       }
      #+end_src
 
-     #+results:
+     #+results[aeb759cfc1bdc4b73945203f627c14195008e1f2]:
      [[file:img/initial.png]]
 
      and of cause there can be multiple objects that can be the candidate
@@ -286,7 +286,7 @@
      Also, consider a category with a bunch of objects, there can be an
      object that has morphisms from every other object to it.
 
-     #+begin_src dot :file img/terminal.png :cmdline -Tpng
+     #+begin_src dot :file img/terminal.png :cmdline -Tpng :cache yes
       digraph G {
         size="8,6"
         rankdir="BT"
@@ -299,7 +299,7 @@
       }
      #+end_src
 
-     #+results:
+     #+results[a5219db0d0bcc3a6707c587a66a0f37802b1e283]:
      [[file:img/terminal.png]]
 
      it pretty clear that we have functions in our programming languages
@@ -345,7 +345,7 @@
      #+end_src
 
      voila! now we have three types and two functions like this:
-     #+begin_src dot :file img/cartisian_product.png :cmdline -Tpng
+     #+begin_src dot :file img/cartisian_product.png :cmdline -Tpng :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -354,13 +354,13 @@
       }
      #+end_src
 
-     #+results:
+     #+results[0063e969386cd52eededcf1a5aa80b738b1536dd]:
      [[file:img/cartisian_product.png]]
 
      and of cause we can have a lot of objects that met this
      requirement, so which one of them is our product?
 
-     #+begin_src dot :file img/mutiple_product.png :cmdline -Tpng
+     #+begin_src dot :file img/mutiple_product.png :cmdline -Tpng :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -375,7 +375,7 @@
       }
      #+end_src
 
-     #+results:
+     #+results[e89bca492dba49de00fb98259bcf954501d3e497]:
      [[file:img/mutiple_product.png]]
 
      For example, can ~Int~ be our candidate product of ~Int~ and ~Bool~? Yes
@@ -404,7 +404,7 @@
 
      We can define a ranking of all of our candidates: if there are a
      unique morphism ~m~ from =c'= to =c=, then =c= is better than =c'=.
-     #+begin_src dot :file img/product.png :cmdline -Tpng
+     #+begin_src dot :file img/product.png :cmdline -Tpng :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -417,7 +417,7 @@
       }
      #+end_src
 
-     #+results:
+     #+results[d7072a637c45b14fff4697ffeba7203f4a477d4a]:
      [[file:img/product.png]]
 
      #+begin_quote
@@ -475,7 +475,7 @@
      think of duality, if we inverse the arrows, we shall get a new
      thing called coproduct.
 
-     #+begin_src dot :file img/coproduct.png :cmdline -Tpng
+     #+begin_src dot :file img/coproduct.png :cmdline -Tpng :cache yes
       digraph G {
         size="4,4"
         rankdir="TB"
@@ -488,7 +488,7 @@
       }
      #+end_src
 
-     #+results:
+     #+results[f99b46eb43af74f1f94cfab451ec780aeab110fc]:
      [[file:img/coproduct.png]]
 
      and the ranking changes also, if a unique morphism connecting our

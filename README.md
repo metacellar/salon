@@ -243,7 +243,9 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 | Date       | Speaker       | Topic                                     | Reference                                                    |
 | ---------- | ------------- | ----------------------------------------- | ------------------------------------------------------------ |
 | 2021/05/06 | aak1247       | Intro to TiDB                             | [Slides(TBD)](slides/tidb.pdf)
+| 2021/05/06 | VanderChen    | Transcations in Spring framwork           | |
 | 2021/05/17 | linkinpark213 | Recommender Systems - Basic Algorithms    | [Slides](https://docs.google.com/presentation/d/1YTGr_WM5wtB3I9H2ftB540p4AuFH7qeNygtNydHwyEA/edit?usp=sharing) |
 | 2021/05/17 | c1            | Category Theory - Algebra Data Types      | [Doc](./docs/category-theory/category-theory.org#types-and-categorys) |
 | 2021/05/25 | linxuyalun    | A Quick View of Distributed System & Raft | [Slides](slides/raft.pdf)                                    |
+| 2021/06/08 | VanderChen    | Geo-replication in Apache Pulsar          | [Slides](https://www.slidestalk.com/ApachePulsar/Georeplication) |
 | 2021/06/08 | aak1247       | Index Structures (Hash and Tree)                   | [Slides](slides/indexes.pdf)

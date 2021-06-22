@@ -624,3 +624,311 @@
      case object Nil extends List[Nothing]
      case class Cons[+A](head: A, tail: List[A]) extends List[A]
     #+end_src
+
+** Functor
+   说到底，什么是 Category 呢，Category 如此抽象，我们为了研究某种简单的
+   性质却要动用整个宇宙的力量 （Universal Construction） 来定义，因为
+   Category 是如此的简单，简单到只剩下 Object 和 Morphisms，简单到只剩下
+   蕴藏在点与线之间的结构上，说白了，Category 就是结构本身。
+
+   Functor， 听起来像是 Function 但又有什么不一样：如同函数一样，函子是
+   某种态射，然而其映射的对象是 Category，而非 Object。
+
+   因此说到底 Functor 就是一种能够保持“结构”的东西，也就是说可以把
+   Morphism 连同 Object 一起，从一个 Category 映射到另一个 Category 。
+
+   #+begin_src dot :file img/functor.png :cmdline -Tpng :exports results :cache yes
+    digraph G {
+      size="3, 3"
+      ratio=expand
+      subgraph cluster_C {
+        style="rounded"
+        label=C
+        a -> b [label="f"]
+      }
+      subgraph cluster_D {
+        style="rounded"
+        label=D
+        Fa -> Fb [label="Ff"]
+      }
+
+      a -> Fa [label="F", constraint=none]
+      b -> Fb [label="F", constraint=none]
+    }
+   #+end_src
+
+   #+results[423472c42104d4a9c52be393f9e075f468ea7b65]:
+   [[file:img/functor.png]]
+
+
+   因此假设我们有一个 Category C：
+   #+begin_src scala
+    def f: a => b
+   #+end_src
+
+   就可以通过函子 F 映射到 Category D 中：
+   #+begin_src scala
+    def Ff[a, b]: F[a] => F[b]
+   #+end_src
+
+   同理，所有的 Morphism 都可以通过 Functor 来映射：
+   #+begin_src dot :file img/functor_with_compose.png :cmdline -Tpng :exports results :cache yes
+    digraph G {
+      size="8, 4"
+      ratio=expand
+      subgraph cluster_C {
+        style="rounded"
+        label=C
+        a -> b [label="f"]
+        b -> c [label="g"]
+        a -> c [label="g∘f"]
+        a -> a [label=<id<SUB>a</SUB>>]
+      }
+      subgraph cluster_D {
+        style="rounded"
+        label=D
+        Fa -> Fb [label="Ff"]
+        Fb -> Fc [label="Fg"]
+        Fa -> Fc [label="F(g∘f)=Fg∘Ff"]
+        Fa -> Fa [label=<Fid<SUB>a</SUB>=id<SUB>Fa</SUB>>]
+      }
+      a -> Fa [label="F", constraint=none]
+      b -> Fb [label="F", constraint=none]
+      c -> Fc [label="F", constraint=none]
+    }
+   #+end_src
+
+   #+results[3aa5cde80532e3a084118572b87228e26cfbe06a]:
+   [[file:img/functor_with_compose.png]]
+
+   可以发现：
+   #+begin_quote
+    F(ida) = idF(a)
+    F(g ∘ f) = F(g) ∘ F(f)
+   #+end_quote
+
+   正如 Category 可大可小，Functor 也可以在这些或大或小的 Category 之间
+   作用；举例来说，存在一个 Functor 将一个 Singleton Category （只有一个
+   Object 的 Category，因此所有的 Morphism 都将是 ID）映射到更大的
+   Category 中，这完全就类似在 Set 中挑选 Element，也存在一个 Functor 将
+   一个 Category 中的每一个 Morphism 都映射到一个 Singleton Category 中
+   的 ID，这样的 Functor 叫做 Const Functor。
+
+   #+begin_src dot :file img/pick_functor.png :cmdline -Tpng :exports results :cache yes
+    digraph G {
+      size="6, 3"
+      ratio=expand
+      rankdir=LR
+      subgraph cluster_C {
+        style="rounded"
+        label=C
+        a -> a [label=<id<SUB>a</SUB>>]
+      }
+      subgraph cluster_D {
+        style="rounded"
+        label=D
+        Fa -> Fa [label=<Fid<SUB>a</SUB>>]
+        Gb -> Gb [label=<Gid<SUB>b</SUB>>]
+      }
+      a -> Fa [label="F"]
+      a -> Gb [label="G"]
+    }
+   #+end_src
+
+   #+results[fdce2d1ad2053c3817d8426aa625620d9e5a73ce]:
+   [[file:img/pick_functor.png]]
+
+   #+begin_src dot :file img/const_functor.png :cmdline -Tpng :exports results :cache yes
+    digraph G {
+      size="6, 3"
+      ratio=expand
+      subgraph cluster_C {
+        style="rounded"
+        label=C
+        a -> b [label="f"]
+        b -> c [label="g"]
+        a -> c [label="g∘f"]
+      }
+      subgraph cluster_D {
+        style="rounded"
+        label=D
+        const -> const [label=<Fid<SUB>const</SUB>>]
+      }
+      a -> const [label="F", constraint=none]
+      b -> const [label="F", constraint=none]
+      c -> const [label="F", constraint=none]
+    }
+   #+end_src
+
+   #+results[9b3e6b5f9a3fec4c1882f6425bdaea3d86d8b568]:
+   [[file:img/const_functor.png]]
+
+
+*** Functors in programming
+    那么 Functor 在程序设计语言中有什么作用呢？
+
+    在程序设计语言的的语境下，Category Theory 不就是 Type Theory 吗？在
+    这 Type 这个 Category 中，我们能做的就是用一个个 Functor 把 Type 这
+    个 Category 映射到 Type 这个 Category 自己，这样的 Functor 我们称作
+    Endofunctor，这样的例子简直数不胜数。
+
+**** Maybe (or Option in scala) Functor
+     对于 Option 的定义如下：
+
+     #+begin_src scala
+      sealed trait Option[+A]
+      case object None extends Option[Nothing]
+      case class Some[A](a: A) extends Option[A]
+     #+end_src
+
+     ~Option[+A]~ 这样一个 Functor 可以将 ~A~ 类型映射到 ~Option[A]~。
+
+     根据 Functor 的定义，它不光映射一个 Category 中 Object，还会将这个
+     Category 中所有的 Morphism 映射到另一个 Category，对应到这里就是：
+     ~Option[+A]~ 将 ~A~ 类型中的所有 function 都映射过来（当然在这里
+     Functor 都指的是 Endofunctor），即：
+
+     对于任意一个函数：
+     #+begin_src scala
+      def f: A => B
+     #+end_src
+
+     都会经由 ~Option[+A]~ 映射出一个对应的函数：
+     #+begin_src scala
+      def f1: Option[A] => Option[B]
+     #+end_src
+
+     如果手动实现这样一个函数我们会考虑两种情况：
+     #+begin_src scala
+      def f1[A, B](f: A => B): Option[A] => Option[B] = {
+        case None => None
+        case Some(x) => Some(f(x))
+      }
+     #+end_src
+
+     上面这个函数其实是一个叫做 fmap 的高阶函数可以实现对于函数的映射。
+     #+begin_src scala
+      def fmap[A, B]: (A => B) => (Option[A] => Option[B])
+     #+end_src
+
+     有些读者可能发现这其实就是 ~Option.map~，的确如此；事实上 Option 除
+     了具有 Functor 的性质之外还具备更多性质，这些性质使得 Option 成为了
+     一种叫做 Monad 的东西（而 Monad 实际上是我们给 Monoid in the
+     Category of Endofunctors 起的名字，即“自函子范畴上的含幺半群”，如果
+     你感兴趣的话）。而学问也总是如此，从特殊到一般，更加泛化，更加通用，
+     更加本质，少即是多。
+
+     之前我们提到 Functor 定律：
+     #+begin_quote
+     F(ida) = idF(a)
+     F(g ∘ f) = F(g) ∘ F(f)
+     #+end_quote
+
+     让我们通过等式推导来证明这一点。
+
+     #+begin_src scala
+      def identity[A](x: A) = x
+
+      // for the first law
+      fmap(identity) == identity
+
+      // case None
+      fmap(identity(None)) == None == identity(None)
+
+      // case Some(x)
+      fmap(identity(Some(x))) == Some(identity(x)) == Some(x) = identity(Some(x))
+
+      // for the second law
+      fmap(g compose f) == fmap(g) compose fmap(f)
+
+      // case None
+      fmap((g compose f)(None)) == None == fmap(g(None)) == fmap(g(fmap(f(None))))
+
+      // case Some(x)
+      fmap((g compose f)(Some(x))) == Some((g compose f)x) == Some(g(f(x))) == fmap(g(Some(f(x)))) == fmap(g(fmap(f(Some(x)))))
+     #+end_src
+
+**** List Functor
+     好吧，也许并不是每个语言都有具备良好定义的 Maybe (Option) 这样的
+     Functor，更加常见的情况下我们确实没有很好的办法来表达 Option 这样的
+     概念；这也是那个著名的把 null type 的发明称作 Billion-dollar
+     mistake 的主要原因，因为人们并不总是能够意识到在 Java 这样的语言中，
+     每一个引用类型都是这个类型本身和 null (Singleton type) 的 Coproduct，
+     因此也不会想到通过 Functor 来表达可能会为空的值。
+
+     但即便如此，我们依然每天都在和 Functor 打交道，比如 List，或者在其
+     他语言中 Array/Slice，所谓不同的形式表达相同的内容就是如此。
+
+     #+begin_src scala
+      sealed trait List[+E]
+      case object Nil extends List[Nothing]
+      case class Cons[+E](head: E, tail: List[E]) extends List[E]
+     #+end_src
+
+     而 List 的 ~fmap~ 定义如下：
+
+     #+begin_src scala
+      def fmap[A, B]: (A => B) => (List[A] => List[B]) =
+        (f: A => B) => {
+          (ls: List[A]) => {
+            case Nil => Nil
+            case Cons(x, t) => Cons(f(x), fmap(f)(t))
+          }
+        }
+     #+end_src
+
+     甚至可以在 python 中实现 fmap
+     #+begin_src python
+      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+          def inner(ls: List[A]) -> List[B]:
+              if len(ls) == 0:
+                  return ls
+              return [f(ls[0])] + fmap(f)(ls[1:])
+          return inner
+
+      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+          def inner(ls: List[A]) -> List[B]:
+              newls = []
+              for x in ls:
+                  newls.append(f(x))
+          return inner
+
+      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+          def inner(ls: List[A]) -> List[B]:
+              return [f(x) for x in ls]
+          return inner
+
+      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+          return lambda ls: [f(x) for x in ls]
+     #+end_src
+
+
+**** Reader Functor
+     List 也许是一个常用的 Functor，但接下来我们要考虑一个更加常用但是我
+     们却几乎无法自知的 Functor： Reader Functor。
+
+     作为 Type 到 Type 的映射，Reader Functor 会把类型 A 映射为一个返回
+     A 的函数类型————没错，函数也是一种类型，我们还没有深入研究过函数类
+     型，这里就先简单做一下介绍：
+
+     #+begin_src scala
+      Function1[A, B]
+
+      // or
+      A => B
+     #+end_src
+
+     此时假设我们固定了第一个参数，假设叫做 ~R~，那么它依然需要另外一个
+     类型参数才能构成一个完整的类型，这就是为什么它也是一个 Functor，也
+     就是我们刚才提到的接受固定的 ~R~ 类型参数并返回 ~A~ 类型的函数类型。
+
+     那么这个 Functor 的 fmap 就会有如下定义：
+
+     #+begin_src scala
+      def fmap[A, B]: (A => B) => ((R => A) => (R => B))
+
+      // remenber function call is assosiative
+      def fmap[A, B]: (A => B) => (R => A) => (R => B) = {
+        (f: A => B) => (g: R => A) = f compose g
+      }
+     #+end_src

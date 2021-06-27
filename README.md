@@ -250,4 +250,5 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 | 2021/06/08 | VanderChen    | Geo-replication in Apache Pulsar           | [Slides](https://www.slidestalk.com/ApachePulsar/Georeplication)                                               |
 | 2021/06/08 | aak1247       | Index Structures (Hash and Tree)           | [Slides](slides/indexes.pdf)                                                                                   |
 | 2021/06/22 | c1            | Category Theory - Introduction of Functors | [Doc](./docs/category-theory/category-theory.org#functor)                                                      |
+| 2021/06/22 | linkinpark213 | Recommendation Systems In Practice         | [Doc](https://docs.google.com/presentation/d/1S7Udm2onZzh4J3LdC2mbaArxxcoCLlu4ekhHvVzKxzg/edit?usp=sharing)                                                      |
 

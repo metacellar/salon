@@ -253,3 +253,9 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 | 2021/06/22 | linkinpark213 | Recommendation Systems In Practice         | [Doc](https://docs.google.com/presentation/d/1S7Udm2onZzh4J3LdC2mbaArxxcoCLlu4ekhHvVzKxzg/edit?usp=sharing)                                                      |
 | 2021/06/28 | All           | Retro                                      | [Doc](./retro/2021-06-28.md)                                                      |
 
+## Season 3: Accumulation
+
+| Date       | Speaker    | Topic | Reference                |
+| ---------- | ---------- | ----- | ------------------------ |
+| 2021/07/05 | linxuyalun | IPC   | [Doc](./docs/ipc/ipc.md) |
+

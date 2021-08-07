@@ -1,0 +1,457 @@
+#+FILETAGS: PERSONAL
+* Structure and Interpretation of Computer Program
+  :LOGBOOK:
+  CLOCK: [2021-03-03 三 21:34]--[2021-03-03 三 22:36] =>  1:02
+  CLOCK: [2021-03-03 Wed 01:43]--[2021-03-03 Wed 01:59] =>  0:16
+  CLOCK: [2021-03-02 Tue 23:59]--[2021-03-03 Wed 01:42] =>  1:43
+  CLOCK: [2021-03-02 Tue 22:59]--[2021-03-02 Tue 23:11] =>  0:12
+  :END:
+
+  #+begin_quote
+  Why MIT stopped teaching SICP
+
+  GJS:
+
+  (1) He and Hal Abelson got tired of teaching it (having done it
+  since the 1980s). So in 1997, they walked into the department head’s
+  office and said: “We quit. Figure out what to do.” And more
+  importantly,
+
+  (2) that they felt that the SICP curriculum no longer prepared
+  engineers for what engineering is like today. Sussman said that in the
+  80s and 90s, engineers built complex systems by combining simple and
+  well-understood parts. The goal of SICP was to provide the abstraction
+  language for reasoning about such systems.
+
+  Today, this is no longer the case. Sussman pointed out that engineers
+  now routinely write code for complicated hardware that they don’t
+  fully understand (and often can’t understand because of trade
+  secrecy.) The same is true at the software level, since programming
+  environments consist of gigantic libraries with enormous
+  functionality. According to Sussman, his students spend most of their
+  time reading manuals for these libraries to figure out how to stitch
+  them together to get a job done. He said that programming today is
+  “More like science. You grab this piece of library and you poke at it.
+  You write programs that poke it and see what it does. And you say,
+  ‘Can I tweak it to do the thing I want?'”. The “analysis-by-synthesis”
+  view of SICP — where you build a larger system out of smaller, simple
+  parts — became irrelevant. Nowadays, we do programming by poking.
+
+  因此，需要知道这门课中所讲到的技术在如今已经很大程度上不再具有直接的实
+  用性，更多的是学习其中的思想方法——计算思维。我们也得以非教条地追本溯源
+  地了解到在这个领域早期的许多设计考量。
+  #+end_quote
+
+** 计算机程序的本质：
+   1. Primitive Expressions
+   2. Means of Combination
+   3. Means of Abstraction
+
+** 1. 程序设计的基本元素
+
+*** 表达式
+
+    什么是表达式？
+
+    /An expression is anything that can be evaluated to produce a value./
+    #+begin_src amm :results org
+      1
+      1 + 1
+      834 * 1232
+      10 / 5
+      1 + 2 + 3 + 4
+    #+end_src
+
+    #+RESULTS:
+    #+begin_src org
+    res0_0: Int = 1
+    res0_1: Int = 2
+    res0_2: Int = 1027488
+    res0_3: Int = 2
+    res0_4: Int = 10
+    #+end_src
+
+*** 环境和命名
+    程序设计语言中，极其关键的一点就是它提供了可以对任意的对象命名的办
+    法，我们说名称唯一确定了一个变量（variable），这个变量的值（value）就
+    是它所代表的那个对象。
+
+    #+begin_src amm :results org
+      def size = 2
+      size
+      5 * size
+    #+end_src
+
+    #+RESULTS:
+    #+begin_src org
+    defined function size
+    res1_1: Int = 2
+    res1_2: Int = 10
+    #+end_src
+
+    #+begin_src amm :results org
+      val size = 2
+      size
+      5 * size
+    #+end_src
+
+    #+RESULTS
+    #+begin_src org
+    size: Int = 2
+    res2_1: Int = 2
+    res2_2: Int = 10
+    #+end_src
+
+    #+begin_src amm :results org
+      val pi = 3.14159265357932384626
+      val radius = 10
+      ((radius * radius) * pi)
+      val circumference = (2 * pi * radius)
+    #+end_src
+
+    #+RESULTS:
+    #+begin_src org
+    pi: Double = 3.1415926535793237
+    radius: Int = 10
+    res3_2: Double = 314.1592653579324
+    circumference: Double = 62.83185307158647
+    #+end_src
+
+    如同真正的数学表达式一般，我们可以对任意多项式命名。
+
+*** 对表达式求值
+
+**** 代换模型
+
+     在不引入副作用的情况下，我们可以直接套用多项式代换法则：
+     #+NAME: square
+     #+begin_src amm :results org
+       def squareInt(x: Int): Int = x * x
+
+       // but the case above is just for int, we can make it general by
+       // using a little trick, but for simplicity we'll ues squareInt
+       // in the following examples
+
+       import math.Numeric
+       def square[T](x: T)(implicit num: Numeric[T]): T = {
+         import num._
+         x * x
+       }
+
+       square(2)
+       square(2.2)
+
+       def squareIntSum(x: Int, y: Int): Int = squareInt(x) + squareInt(y)
+
+       def procIntSum(x: Int, y: Int, proc: Int => Int): Int =
+         proc(x) + proc(y)
+
+       squareIntSum(3, 4)
+       squareIntSum(2 + 1, 5 - 1)
+
+       procIntSum(3, 4, squareInt)
+
+       squareInt(3) + squareInt(4)
+     #+end_src
+
+     #+RESULTS: square
+     #+begin_src org
+     defined function squareInt
+     import math.Numeric
+
+     defined function square
+     res4_3: Int = 4
+     res4_4: Double = 4.840000000000001
+     defined function squareIntSum
+     defined function procIntSum
+     res4_7: Int = 25
+     res4_8: Int = 25
+     #+end_src
+
+     多项式代换模型将编译器/解释器真正的工作方式和我们概念中的多项式运算
+     做了一个抽象，好让我们不关注真正的运算过程，专注于我们脑中的计算。
+
+**** Applicative order, Normal order
+
+     对于任意表达式我们可以通过下面的方法对其进行求值：
+
+     1. 对所有的子表达式求值
+     2. 对于表达式中的过程调用（procedure invoke），将过程名以及其参数替
+        换成过程体
+
+     即使是这个简单的规则也可以引入了一些重要的概念：
+
+     Applicative order 是先将参数都求值完毕再对函数进行代换展开，相反
+     Normal order 是先将多项式完全展开再求值。
+
+     #+begin_src amm :noweb yes :results org
+       <<square>>
+         squareIntSum(2 + 1, 5 - 1)
+       squareInt(2 + 1) + squareInt(5 - 1)
+                                   (2 + 1) * (2 + 1) + (5 - 1) * (5 - 1)
+       3 * 3 + 4 * 4
+       25
+     #+end_src
+
+     在 Scala 语言中，我们区分 Call by name (Normal Order) 变量
+     和 Call by value (Applicative Order)，可以利用这样的语言特性来控制求值的
+     顺序：
+     #+begin_src amm :results org
+       def a: Unit = a
+     #+end_src
+
+     #+begin_src amm :results org
+       val a: Unit = a
+     #+end_src
+
+     然而在大多数情况下 我们发现无论是 Applicative order 还是 Normal
+     order，对于计算的结果是没有影响的，因此我们可说代换求值的次序是不重
+     要的，除了减轻头脑负担以外，还会为我们的程序引入重要的性质。
+
+     课后习题：
+     1. 自己实现一个 =if= 语句，就叫做 =newIf=
+
+**** 牛顿法求平方根
+
+     为什么叫做“过程”（procedure）而不是“函数”（function）
+     考虑平方根的定义：
+
+     #+begin_src amm :noweb yes :results org
+       <<square>>
+       def sqrt(x: Double): Double = {
+         var y
+         y >= 0 && square(y) == x
+         y
+       }
+     #+end_src
+
+     可见，上面的定义毫无定义。可见函数和过程并不是同一个概念，而我们在
+     计算机中所写的程序均为过程，用过程来模拟函数。
+
+     现在，让我们使用牛顿法来计算平方根：
+     |  Guess | Quotient              | Average                          |
+     |--------+-----------------------+----------------------------------|
+     |      1 | (2 / 1) = 2           | ((2 + 1) / 2) = 1.5              |
+     |    1.5 | (2 / 1.5) = 1.3333    | ((1.3333 + 1.5) / 2) = 1.4167    |
+     | 1.4167 | (2 / 1.4167) = 1.4118 | ((1.4167 + 1.4118) / 2) = 1.4142 |
+     | 1.4142 | ...                   | ...                              |
+
+     只要继续下去，我们就会获得越来越精确的平方根近似值，直到我们满意为
+     止，因此我们可以定义如下过程：
+
+     #+begin_src amm :results org
+       def sqrtIter(guess: Double, x: Double): Double = {
+         if (goodEnough(guess, x)) guess
+         else sqrtIter(improve(guess, x), x)
+       }
+     #+end_src
+
+     这就是牛顿法所描述的算法。下面让我们依次定义其中的子过程：
+
+     #+begin_src amm :results org
+       def improve(guess: Double, x: Double): Double = {
+         avg(guess, (x / guess))
+       }
+     #+end_src
+
+     其中：
+
+     #+begin_src amm :results org
+       def avg(x: Double, y: Double): Double = (x + y) / 2
+     #+end_src
+
+     还有个问题，怎样才算 =good enough= 呢？
+
+     #+begin_src amm :results org
+       def goodEnough(guess: Double, x: Double): Boolean = {
+         math.abs(square(guess) - x) < 0.001
+       }
+     #+end_src
+
+     最后，我们需要把这左右的过程组合起来：
+
+     #+begin_src amm :results org
+       def sqrt(x: Double): Double = {
+         def sqrtIter(guess: Double, x: Double): Double = {
+           def goodEnough(guess: Double, x: Double): Boolean = {
+             math.abs(square(guess) - x) < 0.00001
+           }
+           def improve(guess: Double, x: Double): Double = {
+             def avg(x: Double, y: Double): Double = (x + y) / 2
+             avg(guess, (x / guess))
+           }
+           if (goodEnough(guess, x)) guess
+           else sqrtIter(improve(guess, x), x)
+         }
+         sqrtIter(1.0, x)
+       }
+       sqrt(9)
+       sqrt(100 + 37)
+       sqrt(sqrt(2) + sqrt(3))
+       square(sqrt(1000))
+     #+end_src
+
+     #+RESULTS:
+     #+begin_src org
+     defined function sqrt
+     res6_1: Double = 3.000000001396984
+     res6_2: Double = 11.704699917758145
+     res6_3: Double = 1.7737712336472033
+     res6_4: Double = 1000.0000000000343
+     #+end_src
+
+     课后题：
+     1. 如果用之前的 =newIf= 来替换 =if= 呢？
+
+** 2. 构建过程抽象
+
+*** 过程和计算的形状
+    了解了程序设计的基本元素之后，就如同一个刚刚了解了下棋规则的新手，我们
+    依然不知道那些常用的模式和规则。
+
+**** 线性递归与迭代
+     考虑一个例子：阶乘
+
+     #+begin_src amm :results org
+       def factorial(n: Int): Int = {
+         if (n == 1) 1
+         else n * factorial(n - 1)
+       }
+     #+end_src
+
+     利用代换模型，可以将 6 的阶乘按照上面定义的过程展开：
+
+     #+begin_src amm :results org
+       factorial(6)
+       6 * factorial(5)
+       6 * 5 * factorial(4)
+       6 * 5 * 4 * facotial(3)
+       6 * 5 * 4 * 3 * factorial(2)
+       6 * 5 * 4 * 3 * 2 * factorial(1)
+       6 * 5 * 4 * 3 * 2 * 1
+       6 * 5 * 4 * 3 * 2
+       6 * 5 * 4 * 6
+       6 * 5 * 24
+       6 * 120
+       720
+     #+end_src
+
+     如果换一种思路呢，我们可以将 factorial(6) 看作是从 1 开始，
+     1 x 2 = 2，然后再 2 x 3 = 6，每次迭代都得到一个累计值，一直乘到 6
+     为止，这样的思路代码会是如下：
+
+     #+begin_src amm :results org
+       def factorial(n: Int): Int = {
+         def factIter(acc: Int, cnt: Int, max: Int): Int = {
+           if (cnt > max) acc
+           else factIter(acc * cnt, cnt + 1, max)
+         }
+         factIter(1, 1, n)
+       }
+     #+end_src
+
+     使用代换模型展开
+
+     #+begin_src amm :results org
+       factorial(6)
+       factIter(1, 1, 6)
+       factIter(1, 2, 6)
+       factIter(2, 3, 6)
+       factIter(6, 4, 6)
+       factIter(24, 5, 6)
+       factIter(120, 6, 6)
+       factIter(720, 7, 6)
+       720
+     #+end_src
+
+     比较一下这两者到底有什么不同？
+     - 递归计算过程
+     - 迭代计算过程
+
+     #+begin_src amm :results org
+       def factorial(n: Int): Int = {
+         var acc = 1
+         var cnt = 1
+         while (cnt <= max) {
+           acc *= cnt
+           cnt += 1
+         }
+         acc
+       }
+     #+end_src
+
+**** 树形递归
+
+     考虑一个不同的例子：斐波那契数列
+     #+begin_src text
+       0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+     #+end_src
+
+     可以定义为
+     #+begin_src amm :results org
+       def fib(n: Int): Long = {
+         if (n == 0) 0
+         else if (n == 1) 1
+         else fib(n - 1) + fib(n - 2)
+       }
+     #+end_src
+
+     其计算过程展开会变成
+     #+ATTR_ORG: :width 600
+     [[./img/fib-proc.png]]
+
+     可以看出，这是一种非常糟糕的办法，因为它会做巨量的重复计算，利用之
+     前的技巧改造一下：
+
+     #+begin_src amm :results org
+       def fib(n: Int): Long = {
+         def fibIter(acc: Long, cache: Long, cnt: Int): Long = {
+           if (cnt == 0) acc
+           else fibIter(acc + cache, acc, cnt - 1)
+         }
+         fibIter(0, 1, n)
+       }
+     #+end_src
+
+     或者
+     #+begin_src amm :results org
+       def fib(n: Int): Long = {
+         var acc = 0
+         var cache = 1
+         var cnt = n
+         while (cnt != 0) {
+           val tmp = acc
+           acc += cache
+           cache = tmp
+           cnt -= 1
+         }
+         acc
+       }
+     #+end_src
+
+     或者当我们丧心病狂到需要记录其中每一次结果的时候
+
+     #+begin_src amm :results org
+       def fib(n: Int): Long = {
+         var memo: Map[Int, Long] = Map.empty
+         def fibDP(n: Int): Long = {
+           if (memo.contains(n)) memo(n)
+           else {
+             val result =
+               if (n == 0) 0
+               else if (n == 1) 1
+               else fibDP(n - 1) + fibDP(n - 2)
+             memo = memo.updated(n, result)
+             result
+           }
+         }
+         fibDP(n, Map.empty)
+       }
+     #+end_src
+
+     考虑，是否有一种方式可以使得我们按照直觉写出递归程序，并由计算机分
+     析总结出等价的迭代程序呢？害，这是一个美好的梦
+
+     课后习题：
+     1. 杨辉三角
+     2. 换硬币

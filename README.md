@@ -241,7 +241,7 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 ## Season 2: Order Has been Built
 
 | Date       | Speaker       | Topic                                      | Reference                                                                                                      |
-| ---------- | ------------- | -----------------------------------------  | ------------------------------------------------------------                                                   |
+|------------|---------------|--------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 | 2021/05/06 | aak1247       | Intro to TiDB                              | [Slides(TBD)](slides/tidb.pdf)                                                                                 |
 | 2021/05/06 | VanderChen    | Transcations in Spring framwork            |                                                                                                                |
 | 2021/05/17 | linkinpark213 | Recommender Systems - Basic Algorithms     | [Slides](https://docs.google.com/presentation/d/1YTGr_WM5wtB3I9H2ftB540p4AuFH7qeNygtNydHwyEA/edit?usp=sharing) |
@@ -250,12 +250,13 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 | 2021/06/08 | VanderChen    | Geo-replication in Apache Pulsar           | [Slides](https://www.slidestalk.com/ApachePulsar/Georeplication)                                               |
 | 2021/06/08 | aak1247       | Index Structures (Hash and Tree)           | [Slides](slides/indexes.pdf)                                                                                   |
 | 2021/06/22 | c1            | Category Theory - Introduction of Functors | [Doc](./docs/category-theory/category-theory.org#functor)                                                      |
-| 2021/06/22 | linkinpark213 | Recommendation Systems In Practice         | [Doc](https://docs.google.com/presentation/d/1S7Udm2onZzh4J3LdC2mbaArxxcoCLlu4ekhHvVzKxzg/edit?usp=sharing)                                                      |
-| 2021/06/28 | All           | Retro                                      | [Doc](./retro/2021-06-28.md)                                                      |
+| 2021/06/22 | linkinpark213 | Recommendation Systems In Practice         | [Doc](https://docs.google.com/presentation/d/1S7Udm2onZzh4J3LdC2mbaArxxcoCLlu4ekhHvVzKxzg/edit?usp=sharing)    |
+| 2021/06/28 | All           | Retro                                      | [Doc](./retro/2021-06-28.md)                                                                                   |
 
 ## Season 3: Accumulation
 
-| Date       | Speaker    | Topic | Reference                |
-| ---------- | ---------- | ----- | ------------------------ |
-| 2021/07/05 | linxuyalun | IPC   | [Doc](./docs/ipc/ipc.md) |
+| Date       | Speaker    | Topic                                           | Reference                                         |
+|------------|------------|-------------------------------------------------|---------------------------------------------------|
+| 2021/07/05 | linxuyalun | IPC                                             | [Doc](./docs/ipc/ipc.md)                          |
+| 2021/08/12 | c1         | Category Theory - Functorial and Function types | [Doc](./docs/category-theory/category-theory.org) |
 

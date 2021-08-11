@@ -1,934 +1,1288 @@
 * Category Theory
   
 ** Where did I come from?
-   1. Learn =python=, naturally fall in love with the concise syntax of
-      it's =list-comprehension=, and eventually replaced all my =for=
-      loops with it.
-   2. Got a sense of functional programming, and started to learn
-      =Scala=, along with the thoughts of =SICP=.
-   3. =map=, =flatMap=, =filter=, =reduce=, =fold=, etc. All of these
-      wonderful functions are great indeed, but, what's the magic behind
-      them?
+1. Learn =python=, naturally fall in love with the concise syntax of
+   it's =list-comprehension=, and eventually replaced all my =for= loops
+   with it.
+2. Got a sense of functional programming, and started to learn
+   =Scala=, along with the thoughts of =SICP=.
+3. =map=, =flatMap=, =filter=, =reduce=, =fold=, etc. All of these wonderful
+   functions are great indeed, but, what's the magic behind them?
 
-   for example, we know that
-   #+begin_src python
-     [x * x for x in range(10)]
-   #+end_src
 
-   is exactly
-   #+begin_src python
-     list(map(lambda x: x * x, range(10)))
-   #+end_src
+for example, we know that
+#+begin_src python
+[x * x for x in range(10)]
+#+end_src
 
-   that's an easy trick indeed, but what about this one?
-   #+begin_src python
-     [x * y for x in range(10) for y in range(10)]
-   #+end_src
+is exactly
+#+begin_src python
+list(map(lambda x: x * x, range(10)))
+#+end_src
 
-   1-min to figure out...
-  
-   it's easy to represent using =for= loops,
-   #+begin_src python
-     ls = []
-     for x in range(10):
-        for y in range(10):
-           ls.append(x * y)
-   #+end_src
+that's an easy trick indeed, but what about this one?
+#+begin_src python
+[x * y for x in range(10) for y in range(10)]
+#+end_src
 
-   and we know that the results are the same.
+1-min to figure out...
 
-   but as a syntactic-sugar, what exactly the interpreter does when we
-   type the =list-comprehension= above? How does it *compose* the two
-   =for= segment in it?
-   #+begin_src python
-     reduce(list.__add__, map(lambda x: map((lambda x, y: x * y), range(10)), range(10)))
-   #+end_src
+it's easy to represent using =for= loops,
+#+begin_src python
+ls = [] for x in range(10): for y in range(10): ls.append(x * y)
+#+end_src
 
-   This leads me the realm of =Category Theory=. As a theory foundation
-   of the functional code I write so that I know there can be no bug
-   hide in those structures.
+and we know that the results are the same.
+
+but as a syntactic-sugar, what exactly the interpreter does when we type
+the =list-comprehension= above? How does it *compose* the two =for= segment in
+it?
+
+#+begin_src python
+reduce(list.__add__, map(lambda x: map((lambda x, y: x * y), range(10)),range(10)))
+#+end_src
+
+This leads me the realm of =Category Theory=. As a theory foundation of
+the functional code I write so that I know there can be no bug hide in
+those structures.
 
 ** What is Category Theory?
 
-   #+begin_quote
-   什么时候陈老师就可以不教离散数学了？等你们那些编程语言达到我离散数学
-   语言的高度，我陈老师就可以不教离散数学了。
+#+begin_quote
+什么时候陈老师就可以不教离散数学了？等你们那些编程语言达到我离散数学语言
+的高度，我陈老师就可以不教离散数学了。
 
-   ------陈老师
-   #+end_quote 
+------陈老师
+#+end_quote
    
-   Let's start with an image.
-   #+ATTR_ORG: :width 600
-   [[./img/math-map.jpg]]
+Let's start with an image.
+#+ATTR_ORG: :width 600
+[[./img/math-map.jpg]]
 
-   It says that category theory is the Mathematics of Mathematics.
-   From a very high perspective, when the abstraction erase all the
-   "non-necessary" details, All the branch of Mathematics loops the same.
-   =Category theory= study about the common properties of all those
-   different branch of Mathematics.
+It says that category theory is the Mathematics of Mathematics. From a
+very high perspective, when the abstraction erase all the
+"non-necessary" details, All the branch of Mathematics loops the same.
+=Category theory= study about the common properties of all those different
+branch of Mathematics.
 
 ** Category: The essence of composition
    
-   A category consist of =Objects= and =Arrows= goes between them.
+A category consist of =Objects= and =Arrows= goes between them.
 
-   An =Arrow= is called =Morphism= in category theory, Let's think of
-   functions in programming languages (actually procedures that mimic
-   functions).
+An =Arrow= is called =Morphism= in category theory, Let's think of functions
+in programming languages (actually procedures that mimic functions).
 
-   If a function =f= takes a value of type =A= and returns a =B=, and
-   another function =g= takes a =B= and returns a =C=. We can compose
-   them by passing the value of =f= to =g=, and now we have defined a
-   new function that takes =A= and returns =B=
+If a function =f= takes a value of type =A= and returns a =B=, and another
+function =g= takes a =B= and returns a =C=. We can compose them by passing the
+value of =f= to =g=, and now we have defined a new function that takes =A= and
+returns =B=
 
-   =g ∘ f= as "=g= after =f="
+=g ∘ f= as "=g= after =f="
 
 *** Properties of composition
-    - composition is Associable
- 
-    #+begin_quote
-    h ∘ (g ∘ f) = (h ∘ g) ∘ f = h ∘ g ∘ f
-    #+end_quote
+- composition is Associable
 
-    - For every object A, there is an arrow called =unit=, which goes
-      from =A= to =A=, and thus:
- 
-    #+begin_quote
-    f ∘ id(A) = f
+  #+begin_quote
+  h ∘ (g ∘ f) = (h ∘ g) ∘ f = h ∘ g ∘ f
+  #+end_quote
 
-    id(A) ∘ f = f
-    #+end_quote
+- For every object A, there is an arrow called =unit=, which goes from =A=
+  to =A=, and thus:
 
-    
+  #+begin_quote
+  f ∘ id(A) = f
+
+  id(A) ∘ f = f
+  #+end_quote
+
+
 *** The essence of programming
-    Remember what's the element of programming in the book =SICP=?
+Remember what's the element of programming in the book =SICP=?
 
-    - primitive expressions, which represent the simplest entities the
-      language is concerned with
-      
-    - means of combination, by which compound elements are built from
-      simpler ones
-      
-    - means of abstraction, by which compound elements can be named and
-      manipulated as units.
-     
-    the essence of programming is composition, remember the example of
-    square root?
+- primitive expressions, which represent the simplest entities the
+  language is concerned with
+
+- means of combination, by which compound elements are built from
+  simpler ones
+
+- means of abstraction, by which compound elements can be named and
+  manipulated as units.
+
+  the essence of programming is composition, remember the example of
+  square root?
 
 ** Types and Categorys
 
-   Types are not necessary for programming, consider an extreme example:
-   machine language, all programming languages are compiled to machine
-   language in one way or another.
+Types are not necessary for programming, consider an extreme example:
+machine language, all programming languages are compiled to machine
+language in one way or another.
 
-   So why do we need types? can we just write code without types? sure
-   we can, any monkey given a keyboard and plenty of time can produce
-   random bytes that would accept and run. But we human want something
-   meaningful, offload our burden into machines so that we could focus
-   on what really important and matters.
+So why do we need types? can we just write code without types? sure we
+can, any monkey given a keyboard and plenty of time can produce random
+bytes that would accept and run. But we human want something meaningful,
+offload our burden into machines so that we could focus on what really
+important and matters.
 
-   consider this:
-   #+begin_src scala
-    def x: Int
-   #+end_src
+consider this:
+#+begin_src scala
+def x: Int
+#+end_src
 
-   when we declare ~x~ with type ~Int~, what we are trying to say is that ~x~
-   is an element of *set* ~Int~, range from -2147483648 to 2147483647.
+when we declare ~x~ with type ~Int~, what we are trying to say is that ~x~ is
+an element of *set* ~Int~, range from -2147483648 to 2147483647.
 
-   Sets are a very special category (and a nice one!), because in fact
-   we can pick elements inside a set, and learn it's property by the
-   oprations of these elements.
+Sets are a very special category (and a nice one!), because in fact we
+can pick elements inside a set, and learn it's property by the oprations
+of these elements.
 
-   For example:
-   #+begin_src scala
-    def isPositive(x: Int): Bool = x > 0
-   #+end_src
+For example:
+#+begin_src scala
+def isPositive(x: Int): Bool = x > 0
+#+end_src
 
-   #+begin_src
-    > isPositive(2)
-    true
+#+begin_src
+    > isPositive(2) true
 
-    > isPositive(-2)
-    false
-   #+end_src
+    > isPositive(-2) false
+#+end_src
 
-   Now in the world of category, we cannot look inside of an object,
-   from the function(morphism) above, all we can know is that it maps
-   from ~Int~ to ~Bool~
+Now in the world of category, we cannot look inside of an object, from
+the function(morphism) above, all we can know is that it maps from ~Int~
+to ~Bool~
 
-   #+begin_src dot :file img/int_bool.png :cmdline -Tpng :exports results :cache yes
-    digraph G {
-      size="2,2"
-      Int -> Bool
-    }
-   #+end_src
+#+begin_src dot :file img/int_bool.png :cmdline -Tpng :exports results :cache yes
+digraph G { size="2,2" Int -> Bool }
+#+end_src
 
-   #+results[0a3c34204d439be68e9170896bb9ba06520a04ba]:
-   [[file:img/int_bool.png]]
+#+results[0a3c34204d439be68e9170896bb9ba06520a04ba]:
+[[file:img/int_bool.png]]
 
-   #+begin_src scala
-    def myprint(x: String) = print(x)
+#+begin_src scala
+def myprint(x: String) = print(x)
 
-    def myexception(x: Int) = throw new RuntimeException("wrong!")
-   #+end_src
+def myexception(x: Int) = throw new RuntimeException("wrong!")
+#+end_src
 
-   yet what are the return type of the functions above?
+yet what are the return type of the functions above?
 
 *** Example of types
-    apart from the usual types we meet every day, when considering types
-    are actually set, we can study some very special types.
+apart from the usual types we meet every day, when considering types are
+actually set, we can study some very special types.
 
 **** Empty set and Nothing
-     so what's the simplist set?
+so what's the simplist set?
 
-     It't empty set!
-     in scala, we have a type called ~Nothing~ representing the empty set,
-     and of cause we cannot construct a value of this type!
+It't empty set! in scala, we have a type called ~Nothing~ representing the
+empty set, and of cause we cannot construct a value of this type!
 
-     now we can define a function:
-     #+begin_src scala
-     def absurd[A]: Nothing => A
-     #+end_src
+now we can define a function:
+#+begin_src scala
+def absurd[A]: Nothing => A
+#+end_src
 
-     quite true of its name, we cannot even call the function because of
-     there aren't any value of the type ~Nothing~, and the function
-     ~myexception~'s return type is of cause ~Nothing~
+quite true of its name, we cannot even call the function because of
+there aren't any value of the type ~Nothing~, and the function
+~myexception~'s return type is of cause ~Nothing~
 
 **** Singleton set and Unit
-     if a type has only one value, then it can represent any thing we
-     want it be singleton!
+if a type has only one value, then it can represent any thing we want it
+be singleton!
 
-     #+begin_src scala
-      def f44: Unit => Int = _ => 44
-     #+end_src
+#+begin_src scala
+def f44: Unit => Int = _ => 44
+#+end_src
 
-     in scala we have a type default to represent the singleton type, as
-     a function accept whatever value and return 44, or a function takes
-     a ~String~ and return something we don't care.
+in scala we have a type default to represent the singleton type, as a
+function accept whatever value and return 44, or a function takes a
+~String~ and return something we don't care.
 
 **** Two element set and Bool
-     if a type has two value, what is it? It's bool!
+if a type has two value, what is it? It's bool!
 
-     #+begin_src scala
-      sealed trait Bool
-      case object True extends Bool
-      case object False extends Bool
+#+begin_src scala
+sealed trait Bool
+case object True extends Bool
+case object False extends Bool
 
-      def x: Boolean
-     #+end_src
+def x: Boolean
+#+end_src
 
-     and of cause it so useful that we have built-in types in almost
-     every programming language...
+and of cause it so useful that we have built-in types in almost every
+programming language...
 
 ** Product and coproduct
 
 *** Isomorphism
 
-    In category theory, we don't know if two object are the same, we
-    cannot know if two object are the same. Yet we if two
-    arrows(morphisms) are the same are well defined.
+In category theory, we don't know if two object are the same, we cannot
+know if two object are the same. Yet we if two arrows(morphisms) are the
+same are well defined.
 
-    so now, we can define isomorphism
+so now, we can define isomorphism
 
-    #+begin_src dot :file img/isomorphism.png :cmdline -Tpng :exports results :cache yes
-     digraph G {
-       size="4,4"
-       rankdir="LR"
-       a -> b [label="f"]
-       b -> a [label="g"]
-       a -> a [label=<id<SUB>a</SUB>>]
-       b -> b [label=<id<SUB>b</SUB>>]
-     }
-    #+end_src
+#+begin_src dot :file img/isomorphism.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="4,4"
+rankdir="LR"
+a -> b [label="f"]
+b -> a[label="g"]
+a -> a [label=<id<SUB>a</SUB>>]
+b -> b[label=<id<SUB>b</SUB>>]
+}
+#+end_src
 
-    #+results[ee07ab296ff3a37a46eb6603612891229b023d3e]:
-    [[file:img/isomorphism.png]]
+#+results[ee07ab296ff3a37a46eb6603612891229b023d3e]:
+[[file:img/isomorphism.png]]
 
-    #+begin_quote
-    g ∘ f = id_a
+#+begin_quote
+g ∘ f = id_a
 
-    f ∘ g = id_b
-    #+end_quote
+f ∘ g = id_b
+#+end_quote
 
-    so we can say that f and g are the inverse of each other.
+so we can say that f and g are the inverse of each other.
 
 *** Initial object and Terminal object
 **** Initial Object
-     Consider a category with a bunch of objects and with many morphisms
-     as arrows, like a web, if there is one, the initial object has a
-     morphism to every other objects.
+Consider a category with a bunch of objects and with many morphisms as
+arrows, like a web, if there is one, the initial object has a morphism
+to every other objects.
 
-     #+begin_src dot :file img/initial.png :cmdline -Tpng :exports results :cache yes
-      digraph G {
-        size="8,6"
-        rankdir="BT"
-        InitialObject -> a
-        InitialObject -> b
-        InitialObject -> c
-        InitialObject -> d
-        a -> b
-        c -> a
-      }
-     #+end_src
+#+begin_src dot :file img/initial.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="8,6"
+rankdir="BT"
+InitialObject -> a
+InitialObject -> b
+InitialObject -> c
+InitialObject -> d
+a -> b
+c -> a
+}
+#+end_src
 
-     #+results[aeb759cfc1bdc4b73945203f627c14195008e1f2]:
-     [[file:img/initial.png]]
+#+results[2d1a6705efb85507b69a4f501ae8089792ee5ef7]:
+[[file:img/initial.png]]
 
-     and of cause there can be multiple objects that can be the candidate
-     of initial object, but according to the definition of initial
-     object, they must have the unique isomorphism, so the inital object
-     is unique up to isomorphism.
+and of cause there can be multiple objects that can be the candidate of
+initial object, but according to the definition of initial object, they
+must have the unique isomorphism, so the inital object is unique up to
+isomorphism.
 
-     As for our types, it is our ~Nothing~ type!
+As for our types, it is our ~Nothing~ type!
 
-     and the morphisms from initial object to every other object in
-     types is ~absurd~, so yeah I can give you anything, as long as you
-     give me a value of ~Nothing~ :)
+and the morphisms from initial object to every other object in types is
+~absurd~, so yeah I can give you anything, as long as you give me a value
+of ~Nothing~ :)
 
 **** Terminal Object
-     Also, consider a category with a bunch of objects, there can be an
-     object that has morphisms from every other object to it.
+Also, consider a category with a bunch of objects, there can be an
+object that has morphisms from every other object to it.
 
-     #+begin_src dot :file img/terminal.png :cmdline -Tpng :exports results :cache yes
-      digraph G {
-        size="8,6"
-        rankdir="BT"
-        a -> b
-        c -> a
-        a -> TerminalObject
-        b -> TerminalObject
-        c -> TerminalObject
-        d -> TerminalObject
-      }
-     #+end_src
+#+begin_src dot :file img/terminal.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="8,6"
+rankdir="BT"
+a -> b
+c -> a
+a -> TerminalObject
+b -> TerminalObject
+c -> TerminalObject
+d -> TerminalObject
+}
+#+end_src
 
-     #+results[a5219db0d0bcc3a6707c587a66a0f37802b1e283]:
-     [[file:img/terminal.png]]
+#+results[490f5389fb8a78694fe8a5796b1495a166b5cca8]:
+[[file:img/terminal.png]]
 
-     it pretty clear that we have functions in our programming languages
-     that won't return any value (Actually it's that we don't care its
-     value)
+it pretty clear that we have functions in our programming languages that
+won't return any value (Actually it's that we don't care its value)
 
-     #+begin_src scala
-      def unit[A]: A => Unit = _ => ()
-     #+end_src
+#+begin_src scala
+def unit[A]: A => Unit = _ => ()
+#+end_src
 
-     and again, Terminal object is unique up to isomorphism.
+and again, Terminal object is unique up to isomorphism.
 
 **** Duality
-     As we can see, initail object and terminal object has some sort of
-     symmetry in the shape, the only difference between them are the
-     direction of the morphisms.
+As we can see, initail object and terminal object has some sort of
+symmetry in the shape, the only difference between them are the
+direction of the morphisms.
 
-     It's a very important property of categorys, we shall see the
-     example soon.
+It's a very important property of categorys, we shall see the example
+soon.
 
 *** Product and Coproduct
 
 **** Product
-     In Set theory, product is our old friend as we call it Cartesian
-     product.
+In Set theory, product is our old friend as we call it Cartesian
+product.
 
-     Can we generailize product to other categories?
+Can we generailize product to other categories?
 
-     All we that we know is a Cartesian product is a set that has two
-     part that can be project into two sets:
+All we that we know is a Cartesian product is a set that has two part
+that can be project into two sets:
 
-     #+begin_src scala
-      def first[A, B]: (A, B) => A = {
-        case (x, y) => x
-      }
-      first((1, "haha"))
-      1
-      def second[A, B]: (A, B) => B = {
-        case (x, y) => y
-      }
-      second((1, "haha"))
-      "haha"
-     #+end_src
+#+begin_src scala
+def first[A, B]: (A, B) => A = {
+  case (x, y) => x
+}
 
-     voila! now we have three types and two functions like this:
-     #+begin_src dot :file img/cartisian_product.png :cmdline -Tpng :exports results :cache yes
-      digraph G {
-        size="4,4"
-        rankdir="TB"
-        c -> a [label="p"]
-        c -> b [label="q"]
-      }
-     #+end_src
+first((1, "haha"))
+1
 
-     #+results[0063e969386cd52eededcf1a5aa80b738b1536dd]:
-     [[file:img/cartisian_product.png]]
+def second[A, B]: (A, B) => B = {
+  case (x, y) => y
+}
 
-     and of cause we can have a lot of objects that met this
-     requirement, so which one of them is our product?
+second((1, "haha"))
+"haha"
+#+end_src
 
-     #+begin_src dot :file img/mutiple_product.png :cmdline -Tpng :exports results :cache yes
-      digraph G {
-        size="4,4"
-        rankdir="TB"
-        c1 -> a
-        c1 -> b
-        c2 -> a
-        c2 -> b
-        c3 -> a
-        c3 -> b
-        c4 -> a
-        c4 -> b
-      }
-     #+end_src
+voila! now we have three types and two functions like this:
 
-     #+results[e89bca492dba49de00fb98259bcf954501d3e497]:
-     [[file:img/mutiple_product.png]]
+#+begin_src dot :file img/cartisian_product.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="4,4"
+rankdir="TB"
+c -> a[label="p"]
+c -> b[label="q"]
+}
+#+end_src
 
-     For example, can ~Int~ be our candidate product of ~Int~ and ~Bool~? Yes
-     it can!
+#+results[261b673bf400f7e4ea0da39d5e1ed53643476ebf]:
+[[file:img/cartisian_product.png]]
 
-     #+begin_src scala
-      def p: Int => Int = x => x
-      def q: Int => Boolean = _ => True
-     #+end_src
+and of cause we can have a lot of objects that met this requirement, so
+which one of them is our product?
 
-     It's sucks yet it met our requirement. And consider another one:
-     ~(Int, Int, Bool)~, again it can!
+#+begin_src dot :file img/mutiple_product.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="4,4"
+rankdir="TB"
+c1 -> a
+c1 -> b
+c2 -> a
+c2 -> b
+c3 -> a
+c3 -> b
+c4 -> a
+c4 -> b
+}
+#+end_src
 
-     #+begin_src scala
-      def p: (Int, Int, Boolean) => Int = {
-        case (x, y, z) => x
-      }
-      def q: (Int, Int, Boolean) => Boolean = {
-        case (x, y, z) => z
-      }
-     #+end_src
+#+results[5f374353abdcbe599bfd2a051f29ca39395e7919]:
+[[file:img/mutiple_product.png]]
 
-     So what's the problem? We might notice that the first one is too
-     small it has not enought information, and the second one is too
-     large that it loses informations when project.
+For example, can ~Int~ be our candidate product of ~Int~ and ~Bool~? Yes it
+can!
 
-     We can define a ranking of all of our candidates: if there are a
-     unique morphism ~m~ from =c'= to =c=, then =c= is better than =c'=.
-     #+begin_src dot :file img/product.png :cmdline -Tpng :exports results :cache yes
-      digraph G {
-        size="4,4"
-        rankdir="TB"
-        cprimer[label="c'"]
-        cprimer -> c[label="m"]
-        c -> a[label="p"]
-        c -> b[label="q"]
-        cprimer -> a[label="p'"]
-        cprimer -> b[label="q'"]
-      }
-     #+end_src
+#+begin_src scala
+def p: Int => Int = x => x
+def q: Int => Boolean = _ => True
+#+end_src
 
-     #+results[d7072a637c45b14fff4697ffeba7203f4a477d4a]:
-     [[file:img/product.png]]
+It's sucks yet it met our requirement. And consider another one: ~(Int,
+Int, Bool)~, again it can!
 
-     #+begin_quote
-     p' = p ∘ m
+#+begin_src scala
+def p: (Int, Int, Boolean) => Int = {
+  case (x, y, z) => x
+}
+def q: (Int, Int, Boolean) => Boolean = {
+  case (x, y, z) => z
+}
+#+end_src
 
-     q' = q ∘ m
-     #+end_quote
+So what's the problem? We might notice that the first one is too small
+it has not enought information, and the second one is too large that it
+loses informations when project.
 
-     Now we shall see our two cases.
+We can define a ranking of all of our candidates: if there are a unique
+morphism ~m~ from =c'= to =c=, then =c= is better than =c'=.
 
-     For the first case:
-     #+begin_src scala
-      def m: Int => (Int, Boolean) = x => (x, true)
-     #+end_src
+#+begin_src dot :file img/product.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="4,4"
+rankdir="TB"
+cprimer[label="c'"]
+cprimer -> c[label="m"]
+c -> a[label="p"]
+c -> b[label="q"]
+cprimer -> a[label="p'"]
+cprimer -> b[label="q'"]
+}
+#+end_src
 
-     now ~p~ and ~q~ of it will be
-     #+begin_src scala
-      def p: Int => Int = x => first(m(x)) // x
-      def p: Int => Boolean = x => second(m(x)) // true
-     #+end_src
+#+results[afd5a2c4002be438e0504247d417869bfd55e729]:
+[[file:img/product.png]]
 
-     For the second case, ~m~ seems to be unique:
+#+begin_quote
+p' = p ∘ m
 
-     #+begin_src scala
-      def m: (Int, Int, Boolean) => (Int, Boolean) = {
-        case (x, _, z) => (x, z)
-      }
-     #+end_src
+q' = q ∘ m
+#+end_quote
 
-     We said that ~(Int, Boolean)~ is better, according to our definition
-     of betterness, can we find an ~m1~, so that we can recontruct ~first~
-     and ~second~ from ~p~ and ~q~ by compose ~m1~ with them?
+Now we shall see our two cases.
 
-     #+begin_src scala
-     first == p compose m1
-     second == q compose m1
-     #+end_src
+For the first case:
+#+begin_src scala
+def m: Int => (Int, Boolean) = x => (x, true)
+#+end_src
 
-     For the first case: q is always true, and if we get a false then
-     there will be no way to reconstruct it.
+now ~p~ and ~q~ of it will be
+#+begin_src scala
+def p: Int => Int = x => first(m(x)) // x def p: Int => Boolean = x =>
+second(m(x)) // true
+#+end_src
 
-     For the other one: we can have infinite ~m1~
+For the second case, ~m~ seems to be unique:
 
-     #+begin_src scala
-      def m1: ((Int, Boolean)) => (Int, Int, Boolean) = {
-        case (x, b) => (x, x, b)
-      }
-      def m1: ((Int, Boolean)) => (Int, Int, Boolean) = {
-        case (x, b) => (x, 42, b)
-      }
-     #+end_src
+#+begin_src scala
+def m: (Int, Int, Boolean) => (Int, Boolean) = {
+  case (x, _, z) => (x, z)
+}
+#+end_src
 
-     Anyway, with the ranking system introduced, we can define the best
-     object that fits our requriment as our product.
+We said that ~(Int, Boolean)~ is better, according to our definition of
+betterness, can we find an ~m1~, so that we can recontruct ~first~ and
+~second~ from ~p~ and ~q~ by compose ~m1~ with them?
+
+#+begin_src scala
+first == p compose m1 second == q compose m1
+#+end_src
+
+For the first case: q is always true, and if we get a false then there
+will be no way to reconstruct it.
+
+For the other one: we can have infinite ~m1~
+
+#+begin_src scala
+def m1: ((Int, Boolean)) => (Int, Int, Boolean) = {
+  case (x, b) => (x, x, b)
+}
+def m1: ((Int, Boolean)) => (Int, Int, Boolean) = {
+  case (x, b) => (x, 42, b)
+}
+#+end_src
+
+Anyway, with the ranking system introduced, we can define the best
+object that fits our requriment as our product.
 **** Coproduct
-     think of duality, if we inverse the arrows, we shall get a new
-     thing called coproduct.
+think of duality, if we inverse the arrows, we shall get a new thing
+called coproduct.
 
-     #+begin_src dot :file img/coproduct.png :cmdline -Tpng :exports results :cache yes
-      digraph G {
-        size="4,4"
-        rankdir="TB"
-        cprimer[label="c'"]
-        c -> cprimer[label="m"]
-        a -> c[label="i"]
-        b -> c[label="j"]
-        a -> cprimer[label="i'"]
-        b -> cprimer[label="j'"]
-      }
-     #+end_src
+#+begin_src dot :file img/coproduct.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="4,4"
+rankdir="TB"
+cprimer[label="c'"]
+c -> cprimer[label="m"]
+a -> c[label="i"]
+b -> c[label="j"]
+a -> cprimer[label="i'"]
+b -> cprimer[label="j'"]
+}
+#+end_src
 
-     #+results[f99b46eb43af74f1f94cfab451ec780aeab110fc]:
-     [[file:img/coproduct.png]]
+#+results[f99b46eb43af74f1f94cfab451ec780aeab110fc]:
+[[file:img/coproduct.png]]
 
-     and the ranking changes also, if a unique morphism connecting our
-     =c= to any other =c'=, then it's called coproduct.
+and the ranking changes also, if a unique morphism connecting our =c= to
+any other =c'=, then it's called coproduct.
 
-     As programmers we are familiar with coproduct as well: Sum type, or
-     distinct union.
+As programmers we are familiar with coproduct as well: Sum type, or
+distinct union.
 
-     #+begin_src scala
-      sealed trait Contact
-      case class PhoneNum(num: Int) extends Contact
-      case class EmailAddr(addr: String) extends Contact
-     #+end_src
+#+begin_src scala
+sealed trait Contact
+case class PhoneNum(num: Int) extends Contact
+case class EmailAddr(addr: String) extends Contact
+#+end_src
 
-     a more generic type called ~Either~ in scala
-     #+begin_src scala
-      sealed trait Either[A, B]
-      case class Left[A](v: A) extends Either[A, Nothing]
-      case class Right[B](v: B) extends Either[Nothing, B]
-     #+end_src
+a more generic type called ~Either~ in scala
 
-     Like the sum of types.
+#+begin_src scala
+sealed trait Either[A, B]
+case class Left[A](v: A) extends Either[A, Nothing]
+case class Right[B](v: B) extends Either[Nothing, B]
+#+end_src
+
+Like the sum of types.
 
 ** ADT
 
-   Now, with the foundation we have built, let's meet some mighty
-   friends.
+Now, with the foundation we have built, let's meet some mighty friends.
 
-   Let's dig the properties of Product.
+Let's dig the properties of Product.
 
 *** Commutative of Product
-    A product is not strictly commutative, a ~(Int, Boolean)~ is not a
-    ~(Boolean, Int)~, yet they are, however, commutative up to
-    isomorphism.
+A product is not strictly commutative, a ~(Int, Boolean)~ is not a
+~(Boolean, Int)~, yet they are, however, commutative up to isomorphism.
 
-    #+begin_src scala
-     def swap[A, B]: (A, B) => (B, A) = {
-       case (x, y) => (y, x)
-     }
-    #+end_src
+#+begin_src scala
+def swap[A, B]: (A, B) => (B, A) = { case (x, y) => (y, x) }
+#+end_src
 
-    and the inverse of ~swap~ is ~swap~ itself.
+and the inverse of ~swap~ is ~swap~ itself.
 
 *** Associative of Product
-    By embedding, we can store an arbitrary numbers of types into a
-    product, and we can have it in two ways:
+By embedding, we can store an arbitrary numbers of types into a product,
+and we can have it in two ways:
 
-    ~((a, b), c)~ or ~(a, (b, c))~
+~((a, b), c)~ or ~(a, (b, c))~
 
-    and again, up to isomorphism they are associative:
+and again, up to isomorphism they are associative:
 
-    #+begin_src scala
-     def alpha[A, B, C]: ((A, B), C) => (A, (B, C)) = {
-       case ((x, y), z) => (x, (y, z))
-     }
-     def alpha_inv[A, B, C]: (A, (B, C)) => ((A, B), C) = {
-       case (x, (y, z)) => ((x, y), z)
-     }
-    #+end_src
+#+begin_src scala
+def alpha[A, B, C]: ((A, B), C) => (A, (B, C)) = {
+  case ((x, y), z) => (x, (y, z))
+}
+
+def alpha_inv[A, B, C]: (A, (B, C)) => ((A, B), C) = {
+  case (x, (y, z)) => ((x, y), z)
+}
+#+end_src
 
 *** Unit of Product
-    What's the identity of product?
+What's the identity of product?
 
-    it's ~(a, ())~, again it contains the same amount of infomations as
-    ~a~, and this product has id up to isomorphism.
-    #+begin_src scala
-     def rho[A]: (A, Unit) => A {
-       case (x, ()) => x
-     }
-     def rho_inv[A]: A => (A, Unit) = x => (x, ())
-    #+end_src
+it's ~(a, ())~, again it contains the same amount of infomations as ~a~,
+and this product has id up to isomorphism.
+
+#+begin_src scala
+def rho[A]: (A, Unit) => A = {
+  case (x, ()) => x
+}
+def rho_inv[A]: A => (A, Unit) = x => (x, ())
+#+end_src
 
 *** Property of Product
-    Now with commutative, associative and unit, Eureka! it's a
-    Commutative monoid category.
+Now with commutative, associative and unit, Eureka! it's a Commutative
+monoid category.
 
 *** Property of Coproduct
-    Guess what, copruduct is also a commutative monoid up to
-    isomorphism!
+Guess what, copruduct is also a commutative monoid up to isomorphism!
 
 *** Combine the two
 
-    Product is like the product in algebra, and Coproduct is like the
-    sum in algebra, let's see together, the two should have some
-    properties.
+Product is like the product in algebra, and Coproduct is like the sum in
+algebra, let's see together, the two should have some properties.
 
-    for example, we know that in algebra, =a * 0 = 0=, how about here?
+for example, we know that in algebra, =a * 0 = 0=, how about here?
 
-    what is ~(A, Nothing)~?, because we cannot find the value of nothing,
-    then we cannot have a pair with values of both ~A~ and ~Nothing~, so
-    ~(A, Nothing)~, up to isomorphism, is ~Nothing~
+what is ~(A, Nothing)~?, because we cannot find the value of nothing, then
+we cannot have a pair with values of both ~A~ and ~Nothing~, so ~(A,
+Nothing)~, up to isomorphism, is ~Nothing~
 
-    and what about *distributive*?
+and what about *distributive*?
 
-    =a * (b + c) = (a * b) + (a * c)=
+=a * (b + c) = (a * b) + (a * c)=
 
-    #+begin_src scala
-     def distro[A, B, C]: (A, Either[B, C]) => Either[(A, B), (A, C)] = {
-       case (x, either) => either match {
-         case Left(y) => Left(x, y)
-         case Right(z) => Right(x, z)
-       }
-     }
-    #+end_src
+#+begin_src scala
+def distro[A, B, C]: (A, Either[B, C]) => Either[(A, B), (A, C)] = {
+  case (x, either) =>
+    either match {
+      case Left(y) => Left(x, y)
+      case Right(z) => Right(x, z)
+    }
+}
+#+end_src
 
-    it fits!
+it fits!
 
 *** More interesting example
 
-    let's solve equations! see =l(a) == 1 + (a * l(a))=
+let's solve equations! see =l(a) == 1 + (a * l(a))=
 
-    #+begin_quote
-    l(a) = 1 + (a * l(a))
+#+begin_quote
+l(a) = 1 + (a * l(a))
 
-    l(a) - a * l(a) = 1
+l(a) - a * l(a) = 1
 
-    l(a)(1 - a) = 1
+l(a)(1 - a) = 1
 
-    l(a) = 1 / (1 - a)
+l(a) = 1 / (1 - a)
 
-    l(a) = 1 + a + a * a + a * a * a ...
-    #+end_quote
-    #+begin_src scala
-    T[A] = Either[Unit, (A, T[A])]
-    #+end_src
+l(a) = 1 + a + a * a + a * a * a ...
+#+end_quote
 
-    now what is this?
-    #+begin_src scala
-     sealed trait List[+A]
-     case object Nil extends List[Nothing]
-     case class Cons[+A](head: A, tail: List[A]) extends List[A]
-    #+end_src
+#+begin_src scala
+T[A] = Either[Unit, (A, T[A])]
+#+end_src
+
+and what is this?
+
+#+begin_src scala
+sealed trait List[+A]
+case object Nil extends List[Nothing]
+case class Cons[+A](head: A, tail: List[A]) extends List[A]
+#+end_src
 
 ** Functor
-   说到底，什么是 Category 呢，Category 如此抽象，我们为了研究某种简单的
-   性质却要动用整个宇宙的力量 （Universal Construction） 来定义，因为
-   Category 是如此的简单，简单到只剩下 Object 和 Morphisms，简单到只剩下
-   蕴藏在点与线之间的结构上，说白了，Category 就是结构本身。
+说到底，什么是 Category 呢，Category 如此抽象，我们为了研究某种简单的性
+质却要动用整个宇宙的力量 （Universal Construction） 来定义，因为
+Category 是如此的简单，简单到只剩下 Object 和 Morphisms，简单到只剩下蕴
+藏在点与线之间的结构上，说白了，Category 就是结构本身。
 
-   Functor， 听起来像是 Function 但又有什么不一样：如同函数一样，函子是
-   某种态射，然而其映射的对象是 Category，而非 Object。
+Functor， 听起来像是 Function 但又有什么不一样：如同函数一样，函子是某种
+态射，然而其映射的对象是 Category，而非 Object。
 
-   因此说到底 Functor 就是一种能够保持“结构”的东西，也就是说可以把
-   Morphism 连同 Object 一起，从一个 Category 映射到另一个 Category 。
+因此说到底 Functor 就是一种能够保持“结构”的东西，也就是说可以把 Morphism
+连同 Object 一起，从一个 Category 映射到另一个 Category 。
 
-   #+begin_src dot :file img/functor.png :cmdline -Tpng :exports results :cache yes
-    digraph G {
-      size="3, 3"
-      ratio=expand
-      subgraph cluster_C {
-        style="rounded"
-        label=C
-        a -> b [label="f"]
-      }
-      subgraph cluster_D {
-        style="rounded"
-        label=D
-        Fa -> Fb [label="Ff"]
-      }
+#+begin_src dot :file img/functor.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="3, 3"
+ratio=expand
+subgraph cluster_C {
+style="rounded"
+label=C
+a -> b [label="f"]
+}
+subgraph cluster_D {
+style="rounded"
+label=D
+Fa -> Fb[label="Ff"]
+}
 
-      a -> Fa [label="F", constraint=none]
-      b -> Fb [label="F", constraint=none]
-    }
-   #+end_src
+a -> Fa [label="F", constraint=none]
+b -> Fb [label="F", constraint=none] }
+#+end_src
 
-   #+results[423472c42104d4a9c52be393f9e075f468ea7b65]:
-   [[file:img/functor.png]]
+#+results[423472c42104d4a9c52be393f9e075f468ea7b65]:
+[[file:img/functor.png]]
 
 
-   因此假设我们有一个 Category C：
-   #+begin_src scala
-    def f: a => b
-   #+end_src
+因此假设我们有一个 Category C：
+#+begin_src scala
+def f: a => b
+#+end_src
 
-   就可以通过函子 F 映射到 Category D 中：
-   #+begin_src scala
-    def Ff[a, b]: F[a] => F[b]
-   #+end_src
+就可以通过函子 F 映射到 Category D 中：
+#+begin_src scala
+def Ff[a, b]: F[a] => F[b]
+#+end_src
 
-   同理，所有的 Morphism 都可以通过 Functor 来映射：
-   #+begin_src dot :file img/functor_with_compose.png :cmdline -Tpng :exports results :cache yes
-    digraph G {
-      size="8, 4"
-      ratio=expand
-      subgraph cluster_C {
-        style="rounded"
-        label=C
-        a -> b [label="f"]
-        b -> c [label="g"]
-        a -> c [label="g∘f"]
-        a -> a [label=<id<SUB>a</SUB>>]
-      }
-      subgraph cluster_D {
-        style="rounded"
-        label=D
-        Fa -> Fb [label="Ff"]
-        Fb -> Fc [label="Fg"]
-        Fa -> Fc [label="F(g∘f)=Fg∘Ff"]
-        Fa -> Fa [label=<Fid<SUB>a</SUB>=id<SUB>Fa</SUB>>]
-      }
-      a -> Fa [label="F", constraint=none]
-      b -> Fb [label="F", constraint=none]
-      c -> Fc [label="F", constraint=none]
-    }
-   #+end_src
+同理，所有的 Morphism 都可以通过 Functor 来映射：
+#+begin_src dot :file img/functor_with_compose.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+size="8, 4"
+ratio=expand
+subgraph cluster_C {
+style="rounded"
+label=C
+a -> b [label="f"]
+b -> c [label="g"]
+a -> c [label="g∘f"]
+a -> a [label=<id<SUB>a</SUB>>]
+}
+subgraph cluster_D {
+style="rounded"
+label=D
+Fa -> Fb [label="Ff"]
+Fb -> Fc [label="Fg"]
+Fa -> Fc [label="F(g∘f)=Fg∘Ff"]
+Fa -> Fa [label=<Fid<SUB>a</SUB>=id<SUB>Fa</SUB>>] }
+a -> Fa [label="F", constraint=none]
+b -> Fb [label="F", constraint=none]
+c -> Fc [label="F", constraint=none] }
+#+end_src
 
-   #+results[3aa5cde80532e3a084118572b87228e26cfbe06a]:
-   [[file:img/functor_with_compose.png]]
+#+results[ae1192c42a1daff0cf15f1d9ba452795be692498]:
+[[file:img/functor_with_compose.png]]
 
-   可以发现：
-   #+begin_quote
-    F(ida) = idF(a)
-    F(g ∘ f) = F(g) ∘ F(f)
-   #+end_quote
+可以发现：
+#+begin_quote
+F(ida) = idF(a) F(g ∘ f) = F(g) ∘ F(f)
+#+end_quote
 
-   正如 Category 可大可小，Functor 也可以在这些或大或小的 Category 之间
-   作用；举例来说，存在一个 Functor 将一个 Singleton Category （只有一个
-   Object 的 Category，因此所有的 Morphism 都将是 ID）映射到更大的
-   Category 中，这完全就类似在 Set 中挑选 Element，也存在一个 Functor 将
-   一个 Category 中的每一个 Morphism 都映射到一个 Singleton Category 中
-   的 ID，这样的 Functor 叫做 Const Functor。
+正如 Category 可大可小，Functor 也可以在这些或大或小的 Category 之间作用；
+举例来说，存在一个 Functor 将一个 Singleton Category （只有一个 Object
+的 Category，因此所有的 Morphism 都将是 ID）映射到更大的 Category 中，这
+完全就类似在 Set 中挑选 Element，也存在一个 Functor 将一个 Category 中的
+每一个 Morphism 都映射到一个 Singleton Category 中的 ID，这样的 Functor
+叫做 Const Functor。
 
-   #+begin_src dot :file img/pick_functor.png :cmdline -Tpng :exports results :cache yes
-    digraph G {
-      size="6, 3"
-      ratio=expand
-      rankdir=LR
-      subgraph cluster_C {
-        style="rounded"
-        label=C
-        a -> a [label=<id<SUB>a</SUB>>]
-      }
-      subgraph cluster_D {
-        style="rounded"
-        label=D
-        Fa -> Fa [label=<Fid<SUB>a</SUB>>]
-        Gb -> Gb [label=<Gid<SUB>b</SUB>>]
-      }
-      a -> Fa [label="F"]
-      a -> Gb [label="G"]
-    }
-   #+end_src
+#+begin_src dot :file img/pick_functor.png :cmdline -Tpng :exports results :cache yes
+digraph G { size="6, 3" ratio=expand rankdir=LR subgraph cluster_C {
+style="rounded" label=C a -> a [label=<id<SUB>a</SUB>>] } subgraph
+cluster_D { style="rounded" label=D Fa -> Fa [label=<Fid<SUB>a</SUB>>]
+Gb -> Gb [label=<Gid<SUB>b</SUB>>] } a -> Fa [label="F"] a -> Gb
+[label="G"] }
+#+end_src
 
-   #+results[fdce2d1ad2053c3817d8426aa625620d9e5a73ce]:
-   [[file:img/pick_functor.png]]
+#+results[fc2891851dfac33aff13c01adb52bcc2d10b72d2]:
+[[file:img/pick_functor.png]]
 
-   #+begin_src dot :file img/const_functor.png :cmdline -Tpng :exports results :cache yes
-    digraph G {
-      size="6, 3"
-      ratio=expand
-      subgraph cluster_C {
-        style="rounded"
-        label=C
-        a -> b [label="f"]
-        b -> c [label="g"]
-        a -> c [label="g∘f"]
-      }
-      subgraph cluster_D {
-        style="rounded"
-        label=D
-        const -> const [label=<Fid<SUB>const</SUB>>]
-      }
-      a -> const [label="F", constraint=none]
-      b -> const [label="F", constraint=none]
-      c -> const [label="F", constraint=none]
-    }
-   #+end_src
+#+begin_src dot :file img/const_functor.png :cmdline -Tpng :exports results :cache yes
+digraph G { size="6, 3" ratio=expand subgraph cluster_C {
+style="rounded" label=C a -> b [label="f"] b -> c [label="g"] a -> c
+[label="g∘f"] } subgraph cluster_D { style="rounded" label=D const ->
+const [label=<Fid<SUB>const</SUB>>] } a -> const [label="F",
+constraint=none] b -> const [label="F", constraint=none] c -> const
+[label="F", constraint=none] }
+#+end_src
 
-   #+results[9b3e6b5f9a3fec4c1882f6425bdaea3d86d8b568]:
-   [[file:img/const_functor.png]]
+#+results[5a8e55c1b997d8520e043b88ed78c5932fd3200a]:
+[[file:img/const_functor.png]]
 
 
 *** Functors in programming
-    那么 Functor 在程序设计语言中有什么作用呢？
+那么 Functor 在程序设计语言中有什么作用呢？
 
-    在程序设计语言的的语境下，Category Theory 不就是 Type Theory 吗？在
-    这 Type 这个 Category 中，我们能做的就是用一个个 Functor 把 Type 这
-    个 Category 映射到 Type 这个 Category 自己，这样的 Functor 我们称作
-    Endofunctor，这样的例子简直数不胜数。
+在程序设计语言的的语境下，Category Theory 不就是 Type Theory 吗？在这
+Type 这个 Category 中，我们能做的就是用一个个 Functor 把 Type 这个
+Category 映射到 Type 这个 Category 自己，这样的 Functor 我们称作
+Endofunctor，这样的例子简直数不胜数。
 
 **** Maybe (or Option in scala) Functor
-     对于 Option 的定义如下：
+对于 Option 的定义如下：
 
-     #+begin_src scala
-      sealed trait Option[+A]
-      case object None extends Option[Nothing]
-      case class Some[A](a: A) extends Option[A]
-     #+end_src
+#+begin_src scala
+sealed trait Option[+A] case object None extends Option[Nothing] case
+class Some[A](a: A) extends Option[A]
+#+end_src
 
-     ~Option[+A]~ 这样一个 Functor 可以将 ~A~ 类型映射到 ~Option[A]~。
+~Option[+A]~ 这样一个 Functor 可以将 ~A~ 类型映射到 ~Option[A]~。
 
-     根据 Functor 的定义，它不光映射一个 Category 中 Object，还会将这个
-     Category 中所有的 Morphism 映射到另一个 Category，对应到这里就是：
-     ~Option[+A]~ 将 ~A~ 类型中的所有 function 都映射过来（当然在这里
-     Functor 都指的是 Endofunctor），即：
+根据 Functor 的定义，它不光映射一个 Category 中 Object，还会将这个
+Category 中所有的 Morphism 映射到另一个 Category，对应到这里就
+是：~Option[+A]~ 将 ~A~ 类型中的所有 function 都映射过来（当然在这里
+Functor 都指的是 Endofunctor），即：
 
-     对于任意一个函数：
-     #+begin_src scala
-      def f: A => B
-     #+end_src
+对于任意一个函数：
 
-     都会经由 ~Option[+A]~ 映射出一个对应的函数：
-     #+begin_src scala
-      def f1: Option[A] => Option[B]
-     #+end_src
+#+begin_src scala
+def f: A => B
+#+end_src
 
-     如果手动实现这样一个函数我们会考虑两种情况：
-     #+begin_src scala
-      def f1[A, B](f: A => B): Option[A] => Option[B] = {
-        case None => None
-        case Some(x) => Some(f(x))
-      }
-     #+end_src
+都会经由 ~Option[+A]~ 映射出一个对应的函数：
 
-     上面这个函数其实是一个叫做 fmap 的高阶函数可以实现对于函数的映射。
-     #+begin_src scala
-      def fmap[A, B]: (A => B) => (Option[A] => Option[B])
-     #+end_src
+#+begin_src scala
+def f1: Option[A] => Option[B]
+#+end_src
 
-     有些读者可能发现这其实就是 ~Option.map~，的确如此；事实上 Option 除
-     了具有 Functor 的性质之外还具备更多性质，这些性质使得 Option 成为了
-     一种叫做 Monad 的东西（而 Monad 实际上是我们给 Monoid in the
-     Category of Endofunctors 起的名字，即“自函子范畴上的含幺半群”，如果
-     你感兴趣的话）。而学问也总是如此，从特殊到一般，更加泛化，更加通用，
-     更加本质，少即是多。
+如果手动实现这样一个函数我们会考虑两种情况：
 
-     之前我们提到 Functor 定律：
-     #+begin_quote
-     F(ida) = idF(a)
-     F(g ∘ f) = F(g) ∘ F(f)
-     #+end_quote
+#+begin_src scala
+def f1[A, B](f: A => B): Option[A] => Option[B] = {
+  case None => None
+  case Some(x) => Some(f(x))
+}
+#+end_src
 
-     让我们通过等式推导来证明这一点。
+上面这个函数其实是一个叫做 fmap 的高阶函数可以实现对于函数的映射。
+#+begin_src scala
+def fmap[A, B]: (A => B) => (Option[A] => Option[B])
+#+end_src
 
-     #+begin_src scala
-      def identity[A](x: A) = x
+有些读者可能发现这其实就是 ~Option.map~，的确如此；事实上 Option 除了具
+有 Functor 的性质之外还具备更多性质，这些性质使得 Option 成为了一种叫做
+Monad 的东西（而 Monad 实际上是我们给 Monoid in the Category of
+Endofunctors 起的名字，即“自函子范畴上的含幺半群”，如果你感兴趣的话）。
+而学问也总是如此，从特殊到一般，更加泛化，更加通用，更加本质，少即是多。
 
-      // for the first law
-      fmap(identity) == identity
+之前我们提到 Functor 定律：
+#+begin_quote
+F(ida) = idF(a) F(g ∘ f) = F(g) ∘ F(f)
+#+end_quote
 
-      // case None
-      fmap(identity(None)) == None == identity(None)
+让我们通过等式推导来证明这一点。
 
-      // case Some(x)
-      fmap(identity(Some(x))) == Some(identity(x)) == Some(x) = identity(Some(x))
+#+begin_src scala
+def identity[A](x: A) = x
 
-      // for the second law
-      fmap(g compose f) == fmap(g) compose fmap(f)
+// for the first law fmap(identity) == identity
 
-      // case None
-      fmap((g compose f)(None)) == None == fmap(g(None)) == fmap(g(fmap(f(None))))
+// case None fmap(identity(None)) == None == identity(None)
 
-      // case Some(x)
-      fmap((g compose f)(Some(x))) == Some((g compose f)x) == Some(g(f(x))) == fmap(g(Some(f(x)))) == fmap(g(fmap(f(Some(x)))))
-     #+end_src
+// case Some(x) fmap(identity(Some(x))) == Some(identity(x)) == Some(x) = identity(Some(x))
+
+// for the second law fmap(g compose f) == fmap(g) compose fmap(f)
+
+// case None fmap((g compose f)(None)) == None == fmap(g(None)) == fmap(g(fmap(f(None))))
+
+// case Some(x) fmap((g compose f)(Some(x))) == Some((g compose f)x) == Some(g(f(x))) == fmap(g(Some(f(x)))) == fmap(g(fmap(f(Some(x)))))
+#+end_src
 
 **** List Functor
-     好吧，也许并不是每个语言都有具备良好定义的 Maybe (Option) 这样的
-     Functor，更加常见的情况下我们确实没有很好的办法来表达 Option 这样的
-     概念；这也是那个著名的把 null type 的发明称作 Billion-dollar
-     mistake 的主要原因，因为人们并不总是能够意识到在 Java 这样的语言中，
-     每一个引用类型都是这个类型本身和 null (Singleton type) 的 Coproduct，
-     因此也不会想到通过 Functor 来表达可能会为空的值。
+好吧，也许并不是每个语言都有具备良好定义的 Maybe (Option) 这样的 Functor，
+更加常见的情况下我们确实没有很好的办法来表达 Option 这样的概念；这也是那
+个著名的把 null type 的发明称作 Billion-dollar mistake 的主要原因，因为
+人们并不总是能够意识到在 Java 这样的语言中，每一个引用类型都是这个类型本
+身和 null (Singleton type) 的 Coproduct，因此也不会想到通过 Functor 来表
+达可能会为空的值。
 
-     但即便如此，我们依然每天都在和 Functor 打交道，比如 List，或者在其
-     他语言中 Array/Slice，所谓不同的形式表达相同的内容就是如此。
+但即便如此，我们依然每天都在和 Functor 打交道，比如 List，或者在其他语言
+中 Array/Slice，所谓不同的形式表达相同的内容就是如此。
 
-     #+begin_src scala
-      sealed trait List[+E]
-      case object Nil extends List[Nothing]
-      case class Cons[+E](head: E, tail: List[E]) extends List[E]
-     #+end_src
+#+begin_src scala
+sealed trait List[+E]
+case object Nil extends List[Nothing]
+case class Cons[+E](head: E, tail: List[E]) extends List[E]
+#+end_src
 
-     而 List 的 ~fmap~ 定义如下：
+而 List 的 ~fmap~ 定义如下：
 
-     #+begin_src scala
-      def fmap[A, B]: (A => B) => (List[A] => List[B]) =
-        (f: A => B) => {
-          (ls: List[A]) => {
-            case Nil => Nil
-            case Cons(x, t) => Cons(f(x), fmap(f)(t))
-          }
-        }
-     #+end_src
+#+begin_src scala
+def fmap[A, B]: (A => B) => (List[A] => List[B]) =
+  (f: A => B) => {
+    (ls: List[A]) => {
+      case Nil => Nil
+      case Cons(x, t) => Cons(f(x), fmap(f)(t))
+    }
+  }
+#+end_src
 
-     甚至可以在 python 中实现 fmap
-     #+begin_src python
-      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
-          def inner(ls: List[A]) -> List[B]:
-              if len(ls) == 0:
-                  return ls
-              return [f(ls[0])] + fmap(f)(ls[1:])
-          return inner
+甚至可以在 python 中实现 fmap
+#+begin_src python
+def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+    def inner(ls: List[A]) -> List[B]:
+        if len(ls) == 0:
+            return ls
+        return [f(ls[0])] + fmap(f)(ls[1:])
+    return inner
 
-      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
-          def inner(ls: List[A]) -> List[B]:
-              newls = []
-              for x in ls:
-                  newls.append(f(x))
-          return inner
+def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+    def inner(ls: List[A]) -> List[B]:
+        newls = []
+        for x in ls:
+            newls.append(f(x))
+        return newls
+    return inner
 
-      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
-          def inner(ls: List[A]) -> List[B]:
-              return [f(x) for x in ls]
-          return inner
+def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+    def inner(ls: List[A]) -> List[B]:
+        return [f(x) for x in ls]
+    return inner
 
-      def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
-          return lambda ls: [f(x) for x in ls]
-     #+end_src
-
+def fmap(f: Callable[[A], B]) -> Callable[[List[A]], List[B]]:
+    return lambda ls: [f(x) for x in ls]
+#+end_src
 
 **** Reader Functor
-     List 也许是一个常用的 Functor，但接下来我们要考虑一个更加常用但是我
-     们却几乎无法自知的 Functor： Reader Functor。
+List 也许是一个常用的 Functor，但接下来我们要考虑一个更加常用但是我们却
+几乎无法自知的 Functor： Reader Functor。
 
-     作为 Type 到 Type 的映射，Reader Functor 会把类型 A 映射为一个返回
-     A 的函数类型————没错，函数也是一种类型，我们还没有深入研究过函数类
-     型，这里就先简单做一下介绍：
+作为 Type 到 Type 的映射，Reader Functor 会把类型 A 映射为一个返回 A 的
+函数类型————没错，函数也是一种类型，我们还没有深入研究过函数类型，这里就
+先简单做一下介绍：
 
-     #+begin_src scala
-      Function1[A, B]
+#+begin_src scala
+Function1[A, B]
 
-      // or
-      A => B
-     #+end_src
+// or A => B
+#+end_src
 
-     此时假设我们固定了第一个参数，假设叫做 ~R~，那么它依然需要另外一个
-     类型参数才能构成一个完整的类型，这就是为什么它也是一个 Functor，也
-     就是我们刚才提到的接受固定的 ~R~ 类型参数并返回 ~A~ 类型的函数类型。
+此时假设我们固定了第一个参数，假设叫做 ~R~，那么它依然需要另外一个类型参
+数才能构成一个完整的类型，这就是为什么它也是一个 Functor，也就是我们刚才
+提到的接受固定的 ~R~ 类型参数并返回 ~A~ 类型的函数类型。
 
-     那么这个 Functor 的 fmap 就会有如下定义：
+那么这个 Functor 的 fmap 就会有如下定义：
 
-     #+begin_src scala
-      def fmap[A, B]: (A => B) => ((R => A) => (R => B))
+#+begin_src scala
+def fmap[A, B]: (A => B) => ((R => A) => (R => B))
 
-      // remenber function call is assosiative
-      def fmap[A, B]: (A => B) => (R => A) => (R => B) = {
-        (f: A => B) => (g: R => A) = f compose g
+// remenber function call is assosiative
+def fmap[A, B]: (A => B) => (R => A) => (R => B) = {
+  (f: A => B) => (g: R => A) = f compose g
+}
+#+end_src
+
+** Functoriality, Function type, Exponentials
+*** Functoriality and Bifunctor
+好，我们说过 Category Theory 就是研究结构的科学，是时候看看 Functor 的引
+入能多大程度上补完我们的概念拼图了。
+
+回顾一下 Functor 的定义还有之前介绍过的一些具体的 Functor 的例子，让我们
+来看看是否能温故知新：
+
+**** Functor as a category
+
+Functor，根据其定义是可以将结构（Object 和 Morphism）从一个 Category 映
+射到另一个 Category 中的东西。
+
+#+begin_src dot :file img/cat.png :cmdline -Tpng :exports results :cache yes
+digraph G { ratio=expand subgraph cluster_C { style="rounded" label=C a
+-> b [label="f"] } subgraph cluster_D { style="rounded" label=D Fa -> Fb
+[label="Ff"] } subgraph cluster_E { style="rounded" label=E
+G_Fa[label="G(Fa)"] G_Fb[label="G(Fb)"] G_Fa -> G_Fb [label="G(Ff)"] } a
+-> Fa [label="F", constraint=none] b -> Fb [label="F", constraint=none]
+Fa -> G_Fa [label="G", constraint=none] Fb -> G_Fb [label="G",
+constraint=none] a -> G_Fa [label="G∘F", constraint=none] b -> G_Fb
+[label="G∘F", constraint=none] }
+#+end_src
+
+#+results[9dc3d952688963c3935bdf6eb639d4c63cbf8e6d]:
+[[file:img/cat.png]]
+
+一种似曾相识的感觉油然而生，Functor 作为 Morphism 的 Morphism，并且还能
+Compose，Functor 自己也能构成一个 Category，我们叫它为 Cat，也就是
+Category of Categories，当然这里有一些经典问题也就是我们认为 Cat 只是所
+有“小 Category”的 Category，否则我们就会遇到罗素悖论。这里我无意讨论这个
+问题，因此先这样定义好了。
+
+同样，需要举一个具体的例子，考虑一种情况，我们需要把 List 和 Option 组合
+起来使用：
+
+#+begin_src scala
+// 当我们把 List 和 Option 组合起来时
+def tail[A](ls: List[A]): List[A] = {
+  case x :: xs => xs case Nil => ???
+}
+#+end_src
+
+如果我们遇到 Nil，这个 function 就会报错，那么如果我们想不计性能，无论如
+何都要保护好类型安全的话，一个很自然的想法就是将 List 和 Option 组合在一
+起。
+
+#+begin_src scala
+def tailOption[A](ls: List[A]): Option[List[A]] = {
+  case x :: xs => Some(xs)
+  case Nil => None
+}
+
+def fmap[A, B]: (A => B) => (Option[List[A]] => Option[List[B]]) =
+  (f: A => B) => {
+    (ls: Option[List[A]]) => {
+      case None => None
+      case Some(ls) => match ls {
+        case Nil => Some(Nil)
+        case Cons(x, t) => Some(Cons(f(x), fmap(f)(t)))
       }
-     #+end_src
+    }
+  }
+
+def fmap[A, B]: (A => B) => (Option[List[A]] => Option[List[B]]) =
+  (f: A => B) => {
+    OptionFunctor.fmap(ListFunctor.fmap(f))
+  }
+#+end_src
+
+
+**** Bifunctor
+既然 Functor 是 Cat Category 中的 Morphism，因此我们之前提到过的大部分
+Category 中 Morphism 相关的性质也适用于 Functor，比如就像一个 Function
+可以有两个参数，Functor 也可以有两个参数，这种 Functor 叫做 Bifunctor，
+但首先我们要定义这个 Functor 产生的新 Category：Product Category。
+
+#+begin_src dot :file img/bifunctor.png :cmdline -Tpng :exports results :cache yes
+digraph G { ratio=expand subgraph cluster_C { style="rounded" label=C
+c[label="c"] } subgraph cluster_D { style="rounded" label=D d[label="d"]
+} subgraph cluster_E { style="rounded" label="CxD" Fcd[label="Fcd"] } c
+-> Fcd d -> Fcd }
+#+end_src
+
+#+results[9ff3cdd52901ff5d9a9e0e0c906ed3a65ddcfe15]:
+[[file:img/bifunctor.png]]
+
+于是我们就定义了一个 Product Category CxD，那么作为一个 Bifunctor，我们
+怎么定义它的 bimap 呢？
+
+#+begin_src dot :file img/bimap.png :cmdline -Tpng :exports results :cache yes
+digraph G { ratio=expand subgraph cluster_C { style="rounded" label=C a
+-> c[label="f"] } subgraph cluster_D { style="rounded" label=D b ->
+d[label="g"] } subgraph cluster_E { style="rounded" label="CxD" fab ->
+fcd[label="(f, g)"]
+
+} a -> fab c -> fcd b -> fab d -> fcd }
+#+end_src
+
+#+results[8b03a3dec5215fa9fcc478a540ce877c433cc42b]:
+[[file:img/bimap.png]]
+
+为什么是这样的呢，让我们利用已有的知识来推演这个过程
+
+#+begin_src dot :file img/bimap_compose.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+ratio=expand
+subgraph cluster_C {
+style="rounded"
+label=C
+a -> c
+}
+subgraph cluster_D {
+style="rounded"
+label=D b -> d
+}
+subgraph cluster_E {
+style="rounded"
+label="CxD"
+fab -> fcb
+fab -> fad
+fcb -> fcd
+fad -> fcd
+}
+a -> fab
+b -> fab
+c -> fcb
+d -> fad
+}
+#+end_src
+
+#+results[8496b797c978f0ca8c786bb2bac3b634ac392c78]:
+[[file:img/bimap_compose.png]]
+
+一目了然。
+
+#+begin_src scala
+def bimap[A, B, C, D]: (A => C) => (B => D) => ((A, B)) => (C, D)
+
+// Bimap for Either Functor
+
+implicit val eitherBifunctor = new Bifunctor[Either] {
+  override def bimap[A, B, C, D](f: A => C)(g: B => D): Either[A, B] => Either[C, D] = {
+    case Left(x) => Left(f(x))
+    case Right(y) => Right(g(y))
+  }
+}
+
+// and Bimap for Product Functor?
+#+end_src
+
+
+**** Examples
+我们之前举过几个例子，Option，List，Reader。在对 Functor 的定义做了进一
+步的完善之后，终于可以回过头来重新审视这几个 Functor 了，以及一些以前我
+们见过但是没认出来是 Functor 的构造。
+***** Identity Functor
+
+#+begin_src scala
+type Id[A] = A
+
+implicit val IdentityFunctor = new Functor[Id] {
+  def fmap[A, B](f: A => B)(x: Id[A]): Id[B] = {
+    f(x)
+  }
+}
+
+#+end_src
+
+没错， Identity Functor 可能是我们见过的最简单的“容器”了，它在
+isomorphism 的意义上和这个类型本身是相等的，那么，从这个意义上我们可以重
+新去看一看 Option 这个类型了。
+
+***** Option & Bifunctor composition
+
+#+begin_src scala
+sealed trait Option[+A]
+case object None extends Option[Nothing]
+case object Some[A](a: A) extends Opiont[A]
+#+end_src
+
+这是一个 Product，而 Product 具备函子性（Functorial），本身就是一个
+Bifunctor，它的第一部分，也就是 None 的情况是一个 Const Functor，而第二
+部分 Some 则是一个 Identity Functor。
+#+begin_src scala
+type Option[A] = Either[Const[Unit, A], Id[A]]
+#+end_src
+
+两个 Functor 和一个 Bifunctor 经过 Composition 之后得到了一个新的
+Bifuntor！那么这种 Composition 是如何发生的呢？
+
+#+begin_src scala
+case class BiComp[BF[_, _], FU[_], GU[_], A, B](v: BF[FU[A], GU[B]])
+
+implicit def BiCompBifunctor[BF[_, _], FU[_], GU[_]](implicit BF: Bifunctor[BF], FU: Functor[FU], GU: Functor[GU]) = {
+  type BiCompAB[A, B] = BiComp[BF, FU, GU, A, B]
+  new Bifunctor[BiCompAB] {
+    override def bimap[A, B, C, D](f1: A => C)(f2: B => D): BiCompAB[A, B] => BiCompAB[C, D] = {
+      case BiComp(x) =>
+        BiComp(
+          BF.bimap(FU.fmap(f1))(GU.fmap(f2))(x)
+        )
+    }
+  }
+}
+#+end_src
+
+如果这个函数不好理解的话，直接上图：
+#+begin_src dot :file img/bifunctor_compose.png :cmdline -Tpng :exports results :cache yes
+digraph G {
+ratio=expand
+subgraph cluster_CP {
+style="rounded"
+ap[label="a'"]
+cp[label="c'"]
+ap -> cp
+}
+subgraph cluster_DP {
+style="rounded"
+bp[label="b'"]
+dp[label="d'"]
+bp -> dp
+}
+subgraph cluster_C {
+style="rounded"
+label=C
+a -> c
+}
+subgraph cluster_D {
+style="rounded"
+label=D
+b -> d
+}
+subgraph cluster_E {
+style="rounded"
+label="CxD"
+fab -> fcd
+}
+ap -> a
+cp -> c
+bp -> b
+dp -> d
+a -> fab
+b -> fab
+c -> fcd
+d -> fcd
+}
+#+end_src
+
+#+results[525939a235799742aac00d5e5e9a4b6aaf788f2a]:
+[[file:img/bifunctor_compose.png]]
+
+*** Function Type
+我们之前提到过函数类型，并且承诺过之后会做一些更加详细的定义，函数类型到
+底是什么呢？
+
+#+begin_src scala
+def isOdd(number: Int): Bool
+#+end_src
+
+上面这个函数接收一个 Int 类型的值，返回一个 Bool 类型的值，这个函数的类
+型是 ~Int => Bool~ ，Int 在这里我们认为它是一个包含了所有整数的集合（当然
+由于计算机的物力限制可能不是所有整数的集合）而 Bool 是是两个元素构成的集
+合， ~Int => Bool~ 则是从 Int 集合到 Bool 集合所有 Morphism 的集合，我们将
+Category 中的这样的 Morphism 的集合称之为 ~Hom-Set~ 。
+
+请注意，一个 Category 中的 Hom-Set 并不总是存在于这个 Category 之中，但
+由于我们只研究一小部分 Category，而我们要研究的 Function Type 确实存在于
+在程序设计语言的类型系统这个 Category 之中；或者说我们只研究 Internal
+Hom-Set。
+
+
+**** Function Type Definitoin
+
+因为 Function 描述的是入参和返回值类型的关系，所以我们可以将 Function
+Type 视作一个复合类型：于是我们可以通过 Universal Construction 来构造
+Function Type，Argument Type 和 Return Type 这三者之间的模式来定义
+Function Type。（对应我们一开始举的例子中的 ~Int => Bool~ ~Int~ 和 ~Bool~ 之间
+的关系）
+
+他们三者之间有一个很明显的关系就是 Function Application 或者叫
+Evaluation，用 Category Theory 的话来讲就是假设存在一个侯选者 z，
+Argument Type 叫做 a，Return Type 叫做 b，那么 Function Application 就是
+将 z 和 a 构成的 Pair 映射成为 Return Type b。
+
+(z x a) 是一个 Object，而 Function Application 就是图中的 g，在集合论中，
+g 就是将任意一对集合 (z x a) 和集合 b 中的值的 Function。
+
+[[file:img/function_application.png]]
+
+还记得我们是怎样通过 Universal Construction 来定义 Product 和 Coproduct
+的吗？我们构造出一个 Pattern， 然后对所有符合这个 Pattern 的构造做一个排
+序，然后从中选择最好的那个构造，那就是我们想要的东西；在这个例子中，我们
+构造的 Pattern 就是：通过一个 Morphism ~g~ 将两个 Object 的 Product 映射到
+一个 Object b。到这里我必需再次强调：不是没一个 Category 中都有满足这个
+Pattern 的构造的；只有在那些存在 Product 的 Category 中，才有可能定义
+Function Type。
+
+而在我们感兴趣的 Category 中，满足这个 Pattern 的构造实在是太多了，此时
+排序派上了用场：当且仅当存在一个唯一的从 ~z'~ 到 ~z~ 的 Morphism，使得 ~g'~ 可
+以由 ~g'~ 的因式来构造
+
+[[file:img/universal_construction_function_type.png]]
+
+这样一来，我们就找到了满足 Pattern 的最完美的那个构造，此时我们把 ~z~ 叫做
+~a => b~ ，而 ~g~ 则称为 ~eval~ 。
+
+[[file:img/function_type_defined.png]]
+
+从而我们说，一个从 ~a~ 到 ~b~ 的 Function Object 是伴随着【 Morphism ~eval~ 从
+~((a => b) x a)~ 到 ~b~ 】中的 ~a => b~ 。
+而对于任何其他的【 Morphism ~g~ 从 ~(z x a)~ 到 ~b~ 】，存在唯一的【 Morphism
+~h~ 从 ~z~ 到 ~a => b~ 】使得 ~g~ 可以表示为 ~h~ 和 ~eval~ 的 Composition
+#+begin_quote
+g = eval ∘ (h × id)
+#+end_quote
+
+**** Currying
+
+再次观察 Fucntion Type 的一般侯选者，只不过这次我们将 g 看作是接收 z 和
+a 两个参数的的函数
+
+#+begin_src scala
+def g: (Z, A) => B
+#+end_src
+
+我们这时候知道了一定会存在一个唯一的 h 作为从 z 到 a => b 的 Morphism：
+
+#+begin_src scala
+def h: Z => (A => B)
+#+end_src
+
+这恰恰意味着 h 是一个接收 z 类型返回 a 到 b 类型的函数的高阶函数！也就是
+说这种 Universal Construction 在【接收两个参数的函数】和【接收一个变量并
+返回一个函数的函数】之间建立了一个一一对应关系，因为我们知道对于任意一个
+g 来说有且仅有一个 h！这种对应关系我们称之为 *柯里化* 。并且 h 叫做 g 的柯
+里化版本，而 g 是 h 的反柯里化版本，对于任意给定的 h 我们总是能构造出一
+个唯一的 g：
+
+#+begin_quote
+g = eval ∘ (h × id)
+#+end_quote
+
+#+begin_src scala
+A => (B => C)
+A => B => C
+#+end_src
+
+比如说
+#+begin_src scala
+def strcat: (String, String) => String =
+  (s, s1) => s ++ s1
+#+end_src
+
+#+begin_src scala
+def strcat: String => String => String =
+  s => s1 => s ++ s1
+#+end_src
+
+这两种定义是等价的，并且都可以部分应用于一个参数返回一个单参数的函数
+#+begin_src scala
+def greet: String => String =
+  strcat("Hello", _)
+#+end_src
+
+我们把上面的定义一般化：
+
+#+begin_src scala
+def curry[A, B, C](f: (A, B) => C): A => B => C =
+  a => b => f(a, b)
+#+end_src
+
+#+begin_src scala
+def uncurry[A, B, C](f: A => B => C): (A, B) => C =
+  (a, b) => f(a)(b)
+#+end_src
+
+*** Exponentials
+
+又是炫技时刻。这么说吧，一个从 a 到 b 的 Function 我们可以称之为指数，乍
+一看这种说法很奇怪，但是当我们更深入地了解到 Function 和 Product 之间的
+关系的时候，就回开始领略这种说法的美妙之处了。借用 Harold Abelson 的话：
+/“你们觉得 Procedure 和 Data 真的有区别吗”/ ？
+
+举例来说，一个接受 Bool 的（纯）函数可以被特化为一对值：一个对应于 False，
+另一个对应于 True 。比方说，所有从 Bool 到 Int 的函数等价于所有 Int 序对
+所构成的集合，用积来表示就是 Int x Int，或者就是 Int^2。
+
+如果这个例子还不够有说服力的话，再考虑一个例子：isUpper 函数，会判断一个
+Char 类型是否是大写字母，由于 char 包含 256 个值，这个函数等价于 256 个
+Bool 值构成的元组。而元组是 Product，因此我们要处理的就是 Bool x Bool x
+Bool x ... x Bool，我们称之为 Bool^Char :)
+
+因此作为 Procedure 的 Function 和作为 Data 的 Product 的界限真的还那么
+明显吗？反驳的意见可能会说我们不可能将一个函数的所有可能都存下在作为数据
+结构，但是在支持惰性求值的语言中，这两者的区别真的不大。

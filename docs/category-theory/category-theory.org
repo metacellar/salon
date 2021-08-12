@@ -1288,3 +1288,59 @@ Bool x ... x Bool ，我们称之为 ~Bool^Char~ :)
 结构，但是在支持惰性求值的语言中，这两者的区别真的不大。
 
 **** Examples in programming
+***** 0th power
+#+begin_quote
+a^0 = 1
+#+end_quote
+
+0 是 Initial Object，1 是 Terminal Object，那么接收 0 为参数，返回 a 类
+型的函数只有一个，那就是前面介绍过的 absurd 函数。
+
+***** Powers of one
+#+begin_quote
+1^a = 1
+#+end_quote
+
+接收一个类型 a 的值为参数返回 Unit，这样的函数类型也只有一个。
+
+***** First Power
+#+begin_quote
+a^1 = a
+#+end_quote
+
+这等于从各个类型中挑值出来
+
+#+begin_src scala
+def Pick[A]: () => A
+#+end_src
+
+***** Exponential of sums
+#+begin_quote
+a^(b+c) = a^b x a^c
+#+end_quote
+
+#+begin_src scala
+val f: Either[Int, Double] => String
+
+val f: Either[Int, Double] => String = {
+  case Left(n) => if (n < 0) "Negative int" else "Positive int"
+  case Right(x) => if (x < 0.0) "Negative double" else "Positive double"
+}
+#+end_src
+
+一个接收 Coproduct 作为参数的函数，等同于给两个函数构成一个 Product 分别
+作用于这个 Coproduct 的两种 case
+
+***** Exponential of products
+#+begin_quote
+(a^b)^c = a^(bxc)
+#+end_quote
+
+这个我们见过，就是柯里化
+
+***** Exponential over products
+#+begin_quote
+(a x b)^c = a^c x b^c
+#+end_quote
+
+返回一个 Product 的函数等同于两个函数各自返回 Product 的一个参数。

@@ -1269,20 +1269,22 @@ def uncurry[A, B, C](f: A => B => C): (A, B) => C =
 
 *** Exponentials
 
-又是炫技时刻。这么说吧，一个从 a 到 b 的 Function 我们可以称之为指数，乍
+又是炫技时刻。这么说吧，一个从 ~a~ 到 ~b~ 的 Function 我们可以称之为指数，乍
 一看这种说法很奇怪，但是当我们更深入地了解到 Function 和 Product 之间的
 关系的时候，就回开始领略这种说法的美妙之处了。借用 Harold Abelson 的话：
 /“你们觉得 Procedure 和 Data 真的有区别吗”/ ？
 
-举例来说，一个接受 Bool 的（纯）函数可以被特化为一对值：一个对应于 False，
-另一个对应于 True 。比方说，所有从 Bool 到 Int 的函数等价于所有 Int 序对
-所构成的集合，用积来表示就是 Int x Int，或者就是 Int^2。
+举例来说，一个接受 ~Bool~ 的（纯）函数可以被特化为一对值：一个对应于 False，
+另一个对应于 True 。比方说，所有从 ~Bool~ 到 ~Int~ 的函数等价于所有 ~Int~ Pair
+所构成的集合，用积来表示就是 ~Int x Int~ ，或者就是 ~Int^2~ 。
 
-如果这个例子还不够有说服力的话，再考虑一个例子：isUpper 函数，会判断一个
-Char 类型是否是大写字母，由于 char 包含 256 个值，这个函数等价于 256 个
-Bool 值构成的元组。而元组是 Product，因此我们要处理的就是 Bool x Bool x
-Bool x ... x Bool，我们称之为 Bool^Char :)
+如果这个例子还不够有说服力的话，再考虑一个例子： ~isUpper~ 函数，会判断一个
+~Char~ 类型是否是大写字母，由于 ~Char~ 包含 256 个值，这个函数等价于 256 个
+~Bool~ 值构成的元组。而元组是 ~Product~ ，因此我们要处理的就是 Bool x Bool x
+Bool x ... x Bool ，我们称之为 ~Bool^Char~ :)
 
 因此作为 Procedure 的 Function 和作为 Data 的 Product 的界限真的还那么
 明显吗？反驳的意见可能会说我们不可能将一个函数的所有可能都存下在作为数据
 结构，但是在支持惰性求值的语言中，这两者的区别真的不大。
+
+**** Examples in programming

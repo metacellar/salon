@@ -255,8 +255,8 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 
 ## Season 3: Accumulation
 
-| Date       | Speaker    | Topic                                           | Reference                                         |
-|------------|------------|-------------------------------------------------|---------------------------------------------------|
-| 2021/07/05 | linxuyalun | IPC                                             | [Doc](./docs/ipc/ipc.md)                          |
-| 2021/08/12 | c1         | Category Theory - Functorial and Function types | [Doc](./docs/category-theory/category-theory.org) |
+| Date       | Speaker    | Topic                                           | Reference                                                                                   |
+|------------|------------|-------------------------------------------------|---------------------------------------------------------------------------------------------|
+| 2021/07/05 | linxuyalun | IPC                                             | [Doc](./docs/ipc/ipc.md)                                                                    |
+| 2021/08/12 | c1         | Category Theory - Functorial and Function types | [Doc](./docs/category-theory/category-theory.org##functoriality-function-type-exponentials) |
 

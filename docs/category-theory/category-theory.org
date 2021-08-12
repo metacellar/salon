@@ -929,7 +929,8 @@ Category of Categories，当然这里有一些经典问题也就是我们认为 
 #+begin_src scala
 // 当我们把 List 和 Option 组合起来时
 def tail[A](ls: List[A]): List[A] = {
-  case x :: xs => xs case Nil => ???
+  case x :: xs => xs
+  case Nil => ???
 }
 #+end_src
 
@@ -1071,7 +1072,7 @@ case object None extends Option[Nothing]
 case object Some[A](a: A) extends Opiont[A]
 #+end_src
 
-这是一个 Product，而 Product 具备函子性（Functorial），本身就是一个
+这是一个 Coproduct，而 Coproduct 具备函子性（Functorial），本身就是一个
 Bifunctor，它的第一部分，也就是 None 的情况是一个 Const Functor，而第二
 部分 Some 则是一个 Identity Functor。
 #+begin_src scala
@@ -1161,7 +1162,6 @@ Category 中的这样的 Morphism 的集合称之为 ~Hom-Set~ 。
 在程序设计语言的类型系统这个 Category 之中；或者说我们只研究 Internal
 Hom-Set。
 
-
 **** Function Type Definitoin
 
 因为 Function 描述的是入参和返回值类型的关系，所以我们可以将 Function
@@ -1208,7 +1208,6 @@ g = eval ∘ (h × id)
 #+end_quote
 
 **** Currying
-
 再次观察 Fucntion Type 的一般侯选者，只不过这次我们将 g 看作是接收 z 和
 a 两个参数的的函数
 

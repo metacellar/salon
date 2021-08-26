@@ -259,4 +259,5 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 |------------|------------|-------------------------------------------------|---------------------------------------------------------------------------------------------|
 | 2021/07/05 | linxuyalun | IPC                                             | [Doc](./docs/ipc/ipc.md)                                                                    |
 | 2021/08/12 | c1         | Category Theory - Functorial and Function types | [Doc](./docs/category-theory/category-theory.org##functoriality-function-type-exponentials) |
+| 2021/08/19 | VanderChen | OpenStack - RPC & Common MQ Comparison   | TBD | [Paper](https://ieeexplore.ieee.org/document/9303425) [Ref](https://docs.openstack.org/nova/queens/reference/rpc.html)
 | 2021/08/23 | linkinpark213 | Unsupervsed Visual Representation Learning   | TBD |

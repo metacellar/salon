@@ -1343,3 +1343,232 @@ val f: Either[Int, Double] => String = {
 #+end_quote
 
 返回一个 Product 的函数等同于两个函数各自返回 Product 的一个参数。
+** Monad
+*** Definition(s)
+实际上，Monad 从定义上讲是一个简单到不能再简单的东西了：在 EndoFunctor
+Category（自函子范畴）上定义的 Monoid（含幺半群）。有了我们前面了解过的
+Functor 和含幺半群的知识，Monad 其实只是一个简单的数学结构。
+
+但这究竟代表什么，有什么用，我们需要通过具体的定义和一些例子来说明。
+
+**** Fish Anatomy
+其中一个定义是所谓的 Fish Operator ~>=>~
+
+#+begin_src scala
+trait Monad[M[_]] {
+  def >=>[A, B, C](m1: A => M[B], m2: B => M[C]): A => M[C]
+  def pure[A](a: A): M[A]
+}
+#+end_src
+
+让我们看看这是怎么满足含幺半群的性质的：
+#+begin_quote
+(f >=> g) >=> h = f >=> (g >=> h) -- associativity
+pure >=> f = f -- left unit
+f >=> pure = f -- right unit
+#+end_quote
+
+但这其实并非定义 Monad 的主要方式，不过首先让我们来看看如何实现 fish
+operator。
+
+#+begin_src scala
+def >=>[A, B, C](f: A => M[B], g: B => M[C]) =
+  a => {
+    ???
+  }
+#+end_src
+
+然后怎么办呢，对于 A B C 这三个类型我们其实没有任何信息，相当于我们没有
+办法知道他们之间的任何关系除了 f 和 g 这两个函数。
+
+那么当我们什么都做不了的时候，看到一个 A 类型的值 a，唯一能做的就是把它
+传给 f：
+
+#+begin_src scala
+def >=>[A, B, C](f: A => M[B], g: B => M[C]) =
+  a => {
+    val mb = f(a)
+    ???
+  }
+#+end_src
+
+然后呢？我们这时候需要一个 B 类型的值传给 g，但现在我们只有一个 M[B] 类
+型的值 mb，我们需要一个 M[A] => (A => M[B]) => M[B] 类型的函数来帮我们完
+成这件事，事实上这个东西在 Haskell 中叫做 bind，在我们熟悉的许多语言中叫
+做 ~flatMap~
+
+#+begin_src scala
+def flatMap[A, B](ma: M[A])(f: A => M[B]): M[B]
+#+end_src
+
+#+begin_src scala
+trait Monad[M[_]] {
+  def flatMap[A, B](ma: M[A])(f: A => M[B]): M[B]
+  def pure[A](a: A): M[A]
+}
+#+end_src
+
+到目前为止，对于 Monad 的定义还没有用到 Functor 的性质，假如我们假设
+Monad 是一个 Functor，既然 M 是一个 functor，我们可以结合 Functor 的特性
+来探索一下 Monad 的性质，我们可以将上面的 flatMap 的中的参数 f 传给它的
+fmap
+
+#+begin_src scala
+fmap(f)(ma)
+
+fmap(f: A => M[B])(ma: M[A]): M[M[B]]
+#+end_src
+
+啊哈！但我们想要 M[B]，同样的这时候我们需要一个 M[M[A]] => M[A] 类型的函
+数来帮我们完成这件事，事实上这个东西在 Haskell 中叫做 join，在 Scala 和
+其他的一些语言中叫做 flatten，这就很好实现了。而我们可以一路 compose 回
+去得到最初的 fish operator。
+
+根据上面的推导，我们已经知道了 Functor 可以是 Monad 只要多定义一个 pure
+函数和一个flatten 就好，现在我们要证明 Monad 一定是一个 Functor：
+
+Functor 最重要的特质就是它的 fmap，那么如何利用 Monad 的性质来实现 fmap
+呢？
+
+#+begin_src scala
+def fmap[A, B](ma: M[A])(f: A => B): M[B] = {
+  flatMap(ma)(pure compose f)
+}
+#+end_src
+
+:)
+
+
+
+*** Motivation
+首先来几张沙雕图
+
+[[./img/monad-memes-1.jpg]]
+[[./img/monad-memes-2.jpg]]
+
+好了，在日常的工作中我们肯定能在某些场合见到这个词，如果去查它的定义，可
+以见道各种各样奇怪的姿势去解释它的，让人十分摸不着头脑。
+
+事实上，在碰到一些 FP 邪教人士的时候，他们有时候会试图使用 monad 来羞辱
+你，什么必须用 Monad 来处理 Error，什么必须使用 Monad 的方式来处理 Array。
+
+事实上我曾经也是一个这种傻吊，但怎么说呢，人成长的过程就是一个不断弑神的
+过程，一个破除迷信的过程。今天我王老师就要带大家一起揭开 Monad 的神秘面
+纱。
+
+Monad 是一个相对来说简单的概念，具备一些有用的性质，人们可以用这类东西做
+各种各样的事情：比如胶带卷或者刀子，你可以用胶带做各种有意思且各不相同的
+事情，比如封箱，或者就是做一个球当猫猫玩具。可如果一个人不知道胶带，你告
+诉他有一个东西可以用来打包箱子，可以当猫猫玩具，他可能就傻了。这时候再出
+现一些所谓的胶带专家告诉他 One does not simply seal a box without a
+tape. 或者猫猫玩具球实际上就是胶带做的 :)
+
+所以 Monad 其实没有什么高深的解释，本质上我们用它是为了减少 boilerplate
+代码；说实话当前软件工程和计算机科学的发展在事实上是很大程度上是减少了软
+件中的次要复杂度：也就是人类思维和计算机语言的之间的 Gap，说白了，就是减
+少了重复工作。
+
+这在异常处理方面尤为常见，异常处理是一个人人都知道必须要做但是人人都不原
+意做的事情，于是各个语言可能都有一些让人不太舒服的特性来强迫你做这件事：
+
+- 对于 Java 而言，Java 有异常机制，有一个专门的异常栈，因此正常的 return
+  可以不管异常，在需要抛异常的时候抛出去就好，而调用者有责任和义务去检查
+  异常；但是调用者每次都检查异常实在是太烦了，实际上开销也会变大，所以在
+  Java 中如果一个 method 想要抛异常，那么它必须声明自己可能会抛异常，甚
+  至要声明自己可能抛出一个什么异常，然后调用者也根据这个契约去检查对应的
+  异常。但道高一尺，魔高一丈，上有政策，下有对策；有的程序员会在任何可能
+  抛异常的地方声明自己会抛这个最原始的 Exception。相当于程序变啰嗦了但又
+  没有什么信息量，相当于没写。
+
+#+begin_src java
+class Foo {
+    public void doSomething() throws DoThingsException {
+        if (this.cando()) {
+            something()
+        } else {
+            throw new DoThingsException("cannot do");
+        }
+    }
+
+    public void doSomethingAfterSomething() {
+        try {
+            this.doSomething()
+        } catch DoThingsException(e) {
+            System.out.println("cannot do something!")
+        } catch OtherException(e) {
+            System.out.println("something went wrong!")
+        }
+    }
+
+
+    public void doSomethingEvil() throws Exception {
+        something()
+    }
+}
+
+#+end_src
+
+
+- 对于 Golang 来说，它不存在一个异常栈，但程序总会出错，需要有一个出口，
+  于是 Golang 要求你在可能出错的地方多返回一个返回值用来表达异常，并且
+  Golang 的 Runtime 和标准库充满了这类东西，源头充满了异常返回，那它就会
+  像病毒一样到处传播，于是臭名昭著的 Go 语言异常处理就出现了。
+
+#+begin_src go
+type Foo struct {}
+
+func (f *Foo) doSomething() error {
+    if !f.cando() {
+        return errors.New("cannot do")
+    }
+    something()
+    return nil
+}
+
+
+func anythingThatMightWentWrong() (string, error) {
+    if ok, err := goingWell(); err != nil {
+
+        return "good", nil
+    } if wentWrongButHandled() {
+        return "bad", nil
+    }
+    err := wentWrong
+    return errors
+}
+
+#+end_src
+
+这两个例子足以说明一些问题，工程师们必需足够小心才能够正确地处理异常，他
+们必需加倍小心才能够在处理异常的时候为 debug 留下足够的信息，而代价也非
+常明显：他们必需要忍受大量的 boilerplate code，这就平添了许多次要复杂度，
+要知道这一整个领域在过去几十年的主要成就都是减少了次要复杂度。
+
+有了 monad，工程师们才可以在正确和高效之间更好地平衡，除了 Scala/Haskell
+的这些小众而又“偏学术”（事实上，Scala 正在变的越来越流行）例子之外。一些
+被认为非常“工程”的语言中也能见到 Monad 的身影，举一个简单的例子：C#，
+Typescript 或者 Rust 的 Optional Chaining 其实就是 Monad 的应用。
+
+#+begin_src scala
+def f1: A => Option[B]
+
+def f2: B => Option[C]
+
+def f3: C => Option[D]
+
+def f4: D => E
+
+def f5: E => Opiton[F]
+
+// how do we compose these things?
+
+def composed(a: A): Option[F] = {
+  for {
+    b <- f1(a)
+    c <- f2(b)
+    d <- f3(c)
+    e = f4(d)
+    f <- f5(e)
+  } yield f
+}
+#+end_src

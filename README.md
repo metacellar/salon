@@ -255,9 +255,10 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 
 ## Season 3: Accumulation
 
-| Date       | Speaker    | Topic                                           | Reference                                                                                   |
-|------------|------------|-------------------------------------------------|---------------------------------------------------------------------------------------------|
-| 2021/07/05 | linxuyalun | IPC                                             | [Doc](./docs/ipc/ipc.md)                                                                    |
-| 2021/08/12 | c1         | Category Theory - Functorial and Function types | [Doc](./docs/category-theory/category-theory.org##functoriality-function-type-exponentials) |
-| 2021/08/19 | VanderChen | OpenStack - RPC & Common MQ Comparison          |  [Paper](https://ieeexplore.ieee.org/document/9303425) [Ref](https://docs.openstack.org/nova/queens/reference/rpc.html) |
-| 2021/08/23 | linkinpark213 | Unsupervsed Visual Representation Learning   | TBD |
+| Date       | Speaker       | Topic                                           | Reference                                                                                                              |
+|------------|---------------|-------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| 2021/07/05 | linxuyalun    | IPC                                             | [Doc](./docs/ipc/ipc.md)                                                                                               |
+| 2021/08/12 | c1            | Category Theory - Functorial and Function types | [Doc](./docs/category-theory/category-theory.org##functoriality-function-type-exponentials)                            |
+| 2021/08/19 | VanderChen    | OpenStack - RPC & Common MQ Comparison          | [Paper](https://ieeexplore.ieee.org/document/9303425) [Ref](https://docs.openstack.org/nova/queens/reference/rpc.html) |
+| 2021/08/23 | linkinpark213 | Unsupervsed Visual Representation Learning      | TBD                                                                                                                    |
+| 2021/10/13 | c1            | Category Theory - Monad                         | [Doc](./docs/category-theory/category-theory.org##Monad)                                                               |

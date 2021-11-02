@@ -263,5 +263,5 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 | 2021/08/19 | VanderChen    | OpenStack - RPC & Common MQ Comparison          | [Paper](https://ieeexplore.ieee.org/document/9303425) [Ref](https://docs.openstack.org/nova/queens/reference/rpc.html) |
 | 2021/08/23 | linkinpark213 | Unsupervsed Visual Representation Learning      | TBD                                                          |
 | 2021/09/02 | linxuyalun    | Data Store and Data Search, CLP                 | [Doc](docs/data-store-search/数据存储与检索.pdf)             |
-| 2021/09/09 | aak1247    | Spanner                 | [Doc](docs/spanner/doc.pdf)             |
+| 2021/09/09 | aak1247    | Spanner                 | [Doc](docs/spanner/doc.md)             |
 | 2021/10/13 | c1            | Category Theory - Monad                         | [Doc](./docs/category-theory/category-theory.org##Monad)     |

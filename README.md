@@ -265,3 +265,4 @@ for Stream Processing</strong></a> (Yuan Mei, Luwei Cheng, Vanish Talwar, Michae
 | 2021/09/02 | linxuyalun    | Data Store and Data Search, CLP                 | [Doc](docs/data-store-search/数据存储与检索.pdf)             |
 | 2021/09/09 | aak1247    | Spanner                 | [Doc](docs/spanner/doc.md)             |
 | 2021/10/13 | c1            | Category Theory - Monad                         | [Doc](./docs/category-theory/category-theory.org##Monad)     |
+| 2021/11/02 | VanderChen            | Orion: Google’s Software-Defined Networking Control Plane  | [Paper](https://www.usenix.org/system/files/nsdi21-ferguson.pdf)     |
